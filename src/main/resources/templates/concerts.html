@@ -135,10 +135,8 @@
                                  src="https://media.npr.org/assets/music/news/2010/09/maroon-e9cb8c5b25b4d1f3e68aa26e6a0ce51cf2ae59d8-s1100-c50.jpg"
                                  alt="Card image cap">
                             <div class="card-body text-bg-secondary">
-                                <h5 class="card-title" th:text="${concert.getConcertDate()}">Maroon 5</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk
-                                    of the card's content.</p>
+                                <h5 class="card-title" th:text="${concert.getArtist()}">Maroon 5</h5>
+                                <p class="card-text" th:text="Venue: ${concert.getVenue()}"></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary">Book Tickets</a>

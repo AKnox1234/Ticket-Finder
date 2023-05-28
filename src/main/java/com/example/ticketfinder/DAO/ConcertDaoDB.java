@@ -18,8 +18,10 @@ public class ConcertDaoDB {
 
     public List<Concert> getAllConcerts() {
 
-        final String GET_ALL_CONCERTS = "SELECT * FROM concert c " +
-                "JOIN venue v ON v.venue_id";
+        final String GET_ALL_CONCERTS = "SELECT c.concert_id, a.artist_name, v.venue_name, c.concert_date, a.image, " +
+                "v.city FROM concert c\n" +
+                "JOIN venue v ON c.venue_id = v.venue_id\n" +
+                "Join artist a ON c.artist_id = a.artist_id;";
         return jdbc.query(GET_ALL_CONCERTS, new ConcertMapper());
 
     }
@@ -30,7 +32,8 @@ public class ConcertDaoDB {
         public Concert mapRow(ResultSet rs, int index) throws SQLException {
             Concert concert = new Concert();
             concert.setId(rs.getInt("concert_id"));
-//            concert.setArtist(rs.getString("artist_name"));
+            concert.setArtist(rs.getString("artist_name"));
+            concert.setArtistImage(rs.getString("image"));
             concert.setVenue(rs.getString("venue_name"));
             concert.setCity(rs.getString("city"));
             concert.setConcertDate(rs.getDate("concert_date"));

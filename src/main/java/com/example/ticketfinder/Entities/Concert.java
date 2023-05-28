@@ -10,6 +10,16 @@ public class Concert {
     private String city;
     private Date concertDate;
 
+    private String artistImage;
+
+    public String getArtistImage() {
+        return artistImage;
+    }
+
+    public void setArtistImage(String artistImage) {
+        this.artistImage = artistImage;
+    }
+
     public int getId() {
         return id;
     }
