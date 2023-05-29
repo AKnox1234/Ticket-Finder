@@ -5,6 +5,7 @@ import com.example.ticketfinder.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ public class UserDaoDB {
         return jdbc.queryForObject(FIND_USER_BY_ID, new UserMapper(), id);
     }
 
+    @Transactional
     public void addUser(User user) {
 
         final String ADD_USER = "INSERT INTO tf_user(user_id, first_name, last_name, " +
@@ -38,6 +40,7 @@ public class UserDaoDB {
                 user.getUserType());
     }
 
+    @Transactional
     public void deleteUser(int id) {
 
         // first delete the tickets associated with the user

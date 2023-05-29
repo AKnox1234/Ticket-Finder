@@ -5,6 +5,7 @@ import com.example.ticketfinder.Entities.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class TicketDaoDB {
         return jdbc.queryForObject(FIND_USER_BY_TICKET_ID, new TicketMapper(), id);
     }
 
+    @Transactional
     public void addTicket(Ticket ticket) {
 
         final String ADD_TICKET = "INSERT INTO ticket(ticket_id, " +
@@ -30,6 +32,7 @@ public class TicketDaoDB {
                 ticket.getPrice());
     }
 
+    @Transactional
     public void deleteTicket(int id) {
 
         final String ADD_TICKET = "DELETE FROM ticket " +
