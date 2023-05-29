@@ -88,6 +88,14 @@
         .bd-mode-toggle {
             z-index: 1500;
         }
+
+        /*.my-header h4 {*/
+        /*    display: inline;*/
+        /*}*/
+
+        /*.my-header span {*/
+        /*    float: right;*/
+        /*}*/
     </style>
 
 </head>
@@ -96,7 +104,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">TicketFinder</a>
+            <a class="navbar-brand" href="/">TicketFinder</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -119,29 +127,38 @@
 
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
+                <form class="d-flex m-sm-4" role="search" action="concertsBySearch" method="GET">
+                    <input name="search" class="form-control me-2" type="search"
+                           placeholder="Browse by Artist, City, Venue..."
+                           aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 <h1 class="fw-light">Showing Results For "Maroon 5"</h1>
             </div>
         </div>
     </section>
 
-    <div class="album py-5 bg-dark-subtle">
+    <div class="album bg-dark-subtle">
         <div class="container">
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row">
                 <tr th:each="concert : ${concerts}">
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top"
-                                 src="https://media.npr.org/assets/music/news/2010/09/maroon-e9cb8c5b25b4d1f3e68aa26e6a0ce51cf2ae59d8-s1100-c50.jpg"
-                                 alt="Card image cap">
-                            <div class="card-body text-bg-secondary">
-                                <h5 class="card-title" th:text="${concert.getConcertDate()}">Maroon 5</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk
-                                    of the card's content.</p>
+                    <div class="col mt-5">
+                        <div class="card bg-dark text-white" style="width: 18rem;">
+                            <img class="card-img-top" th:src="${concert.getArtistImage()}" alt="Card image cap"
+                                 style=" height: 12rem;">
+                            <div class="card-body">
+                                <div class="my-header">
+                                    <h4 class="card-title" th:text="${concert.getArtist()}">Maroon 5</h4>
+                                    <p class="card-text float-end" style="font-size: 14px"
+                                       th:text="${concert.getConcertDate()}">27th Nov 23</p>
+                                </div>
+                                <p class="card-text" style="font-size: 14px" th:text="${concert.getVenue()} + ', ' + ${concert.getCity()}">Royal Albert
+                                    Hall, London</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-primary">Book Tickets</a>
+                                        <a th:href="@{/viewConcert(iD=${concert.id})}" class="btn btn-success">Book
+                                            Tickets</a>
                                     </div>
                                     <small class="text-body-">32 Tickets Remaining</small>
                                 </div>
@@ -152,6 +169,7 @@
             </div>
         </div>
     </div>
+
 
 </main>
 

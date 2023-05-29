@@ -44,7 +44,7 @@ CREATE TABLE concert (
   FOREIGN KEY (artist_id) REFERENCES artist(artist_id),
   venue_id int DEFAULT NULL,
   FOREIGN KEY (venue_id) REFERENCES venue(venue_id),
-  c_date datetime DEFAULT NULL
+  concert_date datetime DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS tf_user;
