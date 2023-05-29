@@ -21,18 +21,15 @@ public class ConcertDaoDB {
 
     public Concert getConcertById(int iD) {
 
-        try{
             final String GET_CONCERT_BY_ID = "SELECT c.concert_id, a.artist_name, v.venue_name, c.concert_date, a.image, " +
                     "v.city FROM concert c\n" +
                     "JOIN venue v ON c.venue_id = v.venue_id\n" +
-                    "Join artist a ON c.artist_id = a.artist_id" +
+                    "Join artist a ON c.artist_id = a.artist_id\n" +
                     "WHERE c.concert_id = ?;";
             Concert concert = jdbc.queryForObject(GET_CONCERT_BY_ID, new ConcertMapper(), iD);
             return concert;
 
-        } catch (DataAccessException e) {
-            return null;
-        }
+
 
     }
 
