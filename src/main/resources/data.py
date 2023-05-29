@@ -104,7 +104,7 @@ def concert_data(a, v):
             venue_id = str(v[key_v]["id"])
             random_dates = dates(d1, d2)
             for date in random_dates:
-                print(f"INSERT INTO concert(artist_id, venue_id, c_date) values({artist_id}, {venue_id}, DATE '{date}');")
+                print(f"INSERT INTO concert(artist_id, venue_id, concert_date) values({artist_id}, {venue_id}, DATE '{date}');")
     print("")
 
 artist_data(artists)
