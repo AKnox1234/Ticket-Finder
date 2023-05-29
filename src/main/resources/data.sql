@@ -1,15 +1,15 @@
 use ticket_finder;
 -- data for artist table
 
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Rammstein', 'Industrial metal/Hard rock', 160);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Polyphia', 'Progressive rock/Math rock', 110);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Five Finger Death Punch', 'Heavy metal', 200);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Caravan Palace', 'Electro Swing', 90);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('The Notorious B.I.G.', 'Hip-Hop/Rap', 20);
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Rammstein', 'Industrial metal/Hard rock', 160, 'https://upload.wikimedia.org/wikipedia/commons/2/21/Rammstein.jpg');
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Polyphia', 'Progressive rock/Math rock', 110, 'https://i.scdn.co/image/ab6761610000e5ebdd353edbce04267bff979de6');
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Five Finger Death Punch', 'Heavy metal', 200, 'https://i.scdn.co/image/ab6761610000e5eb51a772616af5e2a95dc1d4c1');
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Caravan Palace', 'Electro Swing', 90, 'https://apeconcerts.com/wp-content/uploads/2021/07/Caravan-Palace-1024.jpg' );
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('The Notorious B.I.G.', 'Hip-Hop/Rap', 20, 'https://news.artnet.com/app/news-upload/2020/09/10395-Barron-Claiborne-Notorious-B.I.G.-as-the-K.O.N.Y-King-of-New-York.jpg');
 INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Maroon 5', 'Pop Rock', 130, 'https://media.npr.org/assets/music/news/2010/09/maroon-e9cb8c5b25b4d1f3e68aa26e6a0ce51cf2ae59d8-s1100-c50.jpg');
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Queen', 'Rock', 250);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Eminem', 'Rap', 130);
-INSERT INTO artist (artist_name, genre, base_price) VALUES ('Imagine Dragons', 'Alternative/Indie', 400);
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Queen', 'Rock', 250, 'https://i.scdn.co/image/b040846ceba13c3e9c125d68389491094e7f2982');
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Eminem', 'Rap', 130 , 'https://img.welt.de/img/kultur/mobile171627144/1152501137-ci102l-w1024/Eminem-2.jpg');
+INSERT INTO artist (artist_name, genre, base_price, image) VALUES ('Imagine Dragons', 'Alternative/Indie', 400, 'https://i.scdn.co/image/ab6761610000e5eb920dc1f617550de8388f368e');
 
 -- data for venue table
 
