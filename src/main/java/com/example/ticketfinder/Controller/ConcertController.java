@@ -36,7 +36,8 @@ public class ConcertController {
     }
 
     @GetMapping("viewConcert")
-    public String viewConcert(Integer iD, Model model) {
+    public String viewConcert(HttpServletRequest request, Model model) {
+        int iD = Integer.parseInt(request.getParameter("id"));
         Concert concert = concertDaoDB.getConcertById(iD);
         model.addAttribute("concert", concert);
 
