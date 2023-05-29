@@ -1,9 +1,7 @@
-package com.example.ticketfinder.Entities;
+package com.example.ticketfinder.entities;
 
 import java.util.List;
 import java.util.Objects;
-
-import com.example.ticketfinder.Entities.Ticket;
 
 public class User {
 

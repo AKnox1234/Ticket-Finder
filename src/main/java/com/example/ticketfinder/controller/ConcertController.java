@@ -1,7 +1,7 @@
-package com.example.ticketfinder.Controller;
+package com.example.ticketfinder.controller;
 
-import com.example.ticketfinder.DAO.ConcertDaoDB;
-import com.example.ticketfinder.Entities.Concert;
+import com.example.ticketfinder.dao.ConcertDaoDB;
+import com.example.ticketfinder.entities.Concert;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

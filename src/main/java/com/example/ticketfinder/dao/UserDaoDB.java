@@ -1,16 +1,18 @@
-package com.example.ticketfinder.DAO;
+package com.example.ticketfinder.dao;
 
-import com.example.ticketfinder.Entities.Ticket;
-import com.example.ticketfinder.Entities.User;
+import com.example.ticketfinder.entities.Ticket;
+import com.example.ticketfinder.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class UserDaoDB {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.example.ticketfinder.Entities;
+package com.example.ticketfinder.entities;
 
 import java.util.Objects;
 

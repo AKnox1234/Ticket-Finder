@@ -1,15 +1,13 @@
-package com.example.ticketfinder.DAO;
+package com.example.ticketfinder.dao;
 
-import com.example.ticketfinder.Entities.Concert;
+import com.example.ticketfinder.entities.Concert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @Repository
