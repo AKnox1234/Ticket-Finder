@@ -26,9 +26,6 @@ public class ConcertDaoDB {
                     "WHERE c.concert_id = ?;";
             Concert concert = jdbc.queryForObject(GET_CONCERT_BY_ID, new ConcertMapper(), iD);
             return concert;
-
-
-
     }
 
     public List<Concert> getAllConcerts() {
@@ -58,6 +55,22 @@ public class ConcertDaoDB {
 
     }
 
+    public float calcConcertPrice(int id, String seatType) {
+
+        final String BASE_PRICE = "SELECT a.base_price, v. FROM artist a" +
+                "JOIN concert c ON c.artist_id = a.artist_id" +
+                "WHERE c.concert_id = ?;";
+        float basePrice = jdbc.queryForObject(BASE_PRICE, new FloatMapper(), id);
+
+        final String SEAT_PRICE = "SELECT DISTINCT s.seat_price from seat s " +
+                "JOIN venue_seat vs ON vs.seat_id = s.seat_id " +
+                "JOIN venue v ON vs.venue_id = v.venue_id " +
+                "WHERE s.seat_type LIKE '%"+seatType+"%';";
+        float seat_price = jdbc.queryForObject(BASE_PRICE, new FloatMapper(), seatType);
+
+        return (basePrice + seat_price);
+    }
+
     public static final class ConcertMapper implements RowMapper<Concert> {
 
         @Override
@@ -74,4 +87,11 @@ public class ConcertDaoDB {
         }
     }
 
+    public static final class FloatMapper implements RowMapper<Float> {
+
+        public Float mapRow(ResultSet rs, int index) throws SQLException {
+
+            return rs.getFloat("base_price");
+        }
+    }
 }
