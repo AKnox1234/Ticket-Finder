@@ -47,7 +47,11 @@ public class ConcertDaoDB {
                 "v.city FROM concert c                \n" +
                 "JOIN venue v ON c.venue_id = v.venue_id\n" +
                 "JOIN artist a ON c.artist_id = a.artist_id\n" +
-                "WHERE a.genre LIKE \"%" + search + "%\";";
+                "WHERE a.genre LIKE '%" + search + "%' " +
+                "OR a.artist_name LIKE '%" + search + "%' " +
+                "OR v.venue_name LIKE '%" + search + "%' " +
+                "OR v.country LIKE '%" + search + "%' " +
+                "OR v.city LIKE '%" + search + "%';";
 
 
         return jdbc.query(GET_ALL_CONCERTS_BY_SEARCH, new ConcertMapper());
