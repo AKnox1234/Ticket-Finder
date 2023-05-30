@@ -57,18 +57,21 @@ CREATE TABLE tf_user (
   user_type varchar(255) DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS ticket;
-CREATE TABLE ticket (
-  ticket_id int AUTO_INCREMENT PRIMARY KEY,
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+  order_id int AUTO_INCREMENT PRIMARY KEY,
   concert_id int DEFAULT NULL,
   FOREIGN KEY (concert_id) REFERENCES concert(concert_id),
+  user_id int DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES tf_user(user_id),
+  quantity int DEFAULT NULL,
   price float DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS user_ticket;
-CREATE TABLE user_ticket (
+DROP TABLE IF EXISTS user_order;
+CREATE TABLE user_order (
 	user_id int DEFAULT NULL,
 	FOREIGN KEY (user_id) REFERENCES tf_user(user_id),
-    ticket_id int DEFAULT NULL,
-	FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id)
+    order_id int DEFAULT NULL,
+	FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
