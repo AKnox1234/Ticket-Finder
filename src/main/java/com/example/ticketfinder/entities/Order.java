@@ -2,11 +2,12 @@ package com.example.ticketfinder.entities;
 
 import java.util.Objects;
 
-public class Ticket {
+public class Order {
 
     private int id;
 
     private int concertId;
+
     private float price;
     public int getId() {
         return id;
@@ -36,7 +37,7 @@ public class Ticket {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ticket ticket = (Ticket) o;
+        Order ticket = (Order) o;
         return id == ticket.id && concertId == ticket.concertId && Float.compare(ticket.price, price) == 0;
     }
 

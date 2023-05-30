@@ -1,6 +1,6 @@
 package com.example.ticketfinder.dao;
 
-import com.example.ticketfinder.entities.Ticket;
+import com.example.ticketfinder.entities.Order;
 import com.example.ticketfinder.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -74,12 +74,12 @@ public class UserDaoDB {
         return findUserById(user.getId());
     }
 
-    public List<Ticket> getTicketsOfUser(User user) {
+    public List<Order> getTicketsOfUser(User user) {
 
         // get a list of the tickets associated with user instance
         final String GET_TICKETS = "SELECT * FROM " +
                 USER_TICKET_JOIN+" WHERE user_id = ?;";
-        return jdbc.query(GET_TICKETS, new TicketDaoDB.TicketMapper(), user.getId());
+        return jdbc.query(GET_TICKETS, new OrderDaoDB.OrderMapper(), user.getId());
     }
 
     public static final class UserMapper implements RowMapper<User> {

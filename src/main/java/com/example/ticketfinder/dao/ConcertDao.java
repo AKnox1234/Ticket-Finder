@@ -1,4 +1,4 @@
 package com.example.ticketfinder.dao;
 
-public interface UserDAO {
+public interface ConcertDao {
 }

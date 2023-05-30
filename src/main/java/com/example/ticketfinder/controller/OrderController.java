@@ -1,12 +1,12 @@
 package com.example.ticketfinder.controller;
 
-import com.example.ticketfinder.dao.TicketDaoDB;
+import com.example.ticketfinder.dao.OrderDaoDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class TicketController {
+public class OrderController {
 
     @Autowired
-    TicketDaoDB ticketDaoDB;
+    OrderDaoDB ticketDaoDB;
 }

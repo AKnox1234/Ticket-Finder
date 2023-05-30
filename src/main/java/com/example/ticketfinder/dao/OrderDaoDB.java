@@ -1,6 +1,6 @@
 package com.example.ticketfinder.dao;
 
-import com.example.ticketfinder.entities.Ticket;
+import com.example.ticketfinder.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,51 +11,51 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class TicketDaoDB {
+public class OrderDaoDB {
 
     @Autowired
     JdbcTemplate jdbc;
 
-    public Ticket findTicketByTicketId(int id) {
+    public Order findOrderById(int id) {
 
         final String FIND_USER_BY_TICKET_ID = "SELECT * FROM ticket WHERE ticket_id = ?;";
-        return jdbc.queryForObject(FIND_USER_BY_TICKET_ID, new TicketMapper(), id);
+        return jdbc.queryForObject(FIND_USER_BY_TICKET_ID, new OrderMapper(), id);
     }
 
     @Transactional
-    public void addTicket(Ticket ticket) {
+    public void addOrder(Order order) {
 
-        final String ADD_TICKET = "INSERT INTO ticket(ticket_id, " +
-                "concert_id, price) VALUES(?,?,?);";
-        jdbc.query(ADD_TICKET, new TicketMapper(),
-                ticket.getId(),
-                ticket.getConcertId(),
-                ticket.getPrice());
+        final String ADD_TICKET = "INSERT INTO orders(concert_id, " +
+                "user_id, quantity, price) VALUES(?,?,?,?);";
+        jdbc.query(ADD_TICKET, new OrderMapper(),
+                order.getId(),
+                order.getConcertId(),
+                order.getPrice());
     }
 
     @Transactional
-    public void deleteTicket(int id) {
+    public void deleteOrder(int id) {
 
         final String ADD_TICKET = "DELETE FROM ticket " +
                 "WHERE ticket_id = ?;";
-        jdbc.query(ADD_TICKET, new TicketMapper(), id);
+        jdbc.query(ADD_TICKET, new OrderMapper(), id);
     }
 
-    public Ticket updateTicket(Ticket ticket) {
+    public Order updateOrder(Order order) {
 
         final String UPDATE_TICKET = "UPDATE ticket SET " +
                 "concert_id = ?, " +
                 "price = ?;";
-        jdbc.update(UPDATE_TICKET, ticket.getId());
+        jdbc.update(UPDATE_TICKET, order.getId());
 
-        return findTicketByTicketId(ticket.getId());
+        return findOrderById(order.getId());
     }
 
-    public static final class TicketMapper implements RowMapper<Ticket> {
+    public static final class OrderMapper implements RowMapper<Order> {
 
         @Override
-        public Ticket mapRow(ResultSet rs, int index) throws SQLException {
-            Ticket ticket = new Ticket();
+        public Order mapRow(ResultSet rs, int index) throws SQLException {
+            Order ticket = new Order();
             ticket.setId(rs.getInt("ticket_id"));
             ticket.setConcertId(rs.getInt("concert_id"));
             ticket.setPrice(rs.getFloat("price"));

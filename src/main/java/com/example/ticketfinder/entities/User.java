@@ -11,7 +11,7 @@ public class User {
     private String email;
     private String userPassword;
     private String userType; //could also be boolean
-    private List<Ticket> tickets;
+    private List<Order> tickets;
 
     public int getId() {
         return id;
@@ -74,11 +74,11 @@ public class User {
         return Objects.hash(id, firstName, lastName, email, userPassword, userType, tickets);
     }
 
-    public List<Ticket> getTickets() {
+    public List<Order> getTickets() {
         return tickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
+    public void setTickets(List<Order> tickets) {
         this.tickets = tickets;
     }
 }
