@@ -1,6 +1,7 @@
 package com.example.ticketfinder.controller;
 
 import com.example.ticketfinder.dao.UserDaoDB;
+import com.example.ticketfinder.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,22 @@ public class UserController {
     UserDaoDB userDaoDB;
 
     @GetMapping("createAccount")
-    public String createAccount() {
+    public String createUser() {
         return "createAccount";
+    }
+
+    @PostMapping("addUser")
+    public String createUser(String firstName, String lastName, String email, String password) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setUserType("User");
+
+        userDaoDB.addUser(user);
+
+        return "redirect:/createAccount";
     }
 
     @GetMapping("signIn")

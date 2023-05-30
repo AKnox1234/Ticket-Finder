@@ -27,18 +27,18 @@ public class UserDaoDB {
         return jdbc.queryForObject(FIND_USER_BY_ID, new UserMapper(), id);
     }
 
-    @Transactional
+
+
     public void addUser(User user) {
 
-        final String ADD_USER = "INSERT INTO tf_user(user_id, first_name, last_name, " +
+        final String ADD_USER = "INSERT INTO tf_user(first_name, last_name, " +
                 "email, user_password, user_type)" +
-                " VALUES(?,?,?,?,?,?);";
+                " VALUES(?,?,?,?,?);";
         jdbc.update(ADD_USER,
-                user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getUserPassword(),
+                user.getPassword(),
                 user.getUserType());
     }
 
@@ -67,7 +67,7 @@ public class UserDaoDB {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getUserPassword(),
+                user.getPassword(),
                 user.getUserType(),
                 user.getId());
 
@@ -91,7 +91,7 @@ public class UserDaoDB {
             user.setFirstName(rs.getString("first_name"));
             user.setLastName(rs.getString("last_name"));
             user.setEmail(rs.getString("email"));
-            user.setUserPassword(rs.getString("user_password"));
+            user.setPassword(rs.getString("user_password"));
             user.setUserType(rs.getString("user_type"));
 
             return user;
