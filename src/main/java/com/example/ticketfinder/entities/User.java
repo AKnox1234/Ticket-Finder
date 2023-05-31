@@ -1,15 +1,18 @@
 package com.example.ticketfinder.entities;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class User {
 
     private int id;
     private String firstName;
     private String lastName;
     private String email;
-    private String userPassword;
+    private String password;
     private String userType; //could also be boolean
     private List<Order> tickets;
 
@@ -45,12 +48,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserType() {
@@ -66,12 +69,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(userPassword, user.userPassword) && Objects.equals(userType, user.userType) && Objects.equals(tickets, user.tickets);
+        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(userType, user.userType) && Objects.equals(tickets, user.tickets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, userPassword, userType, tickets);
+        return Objects.hash(id, firstName, lastName, email, password, userType, tickets);
     }
 
     public List<Order> getTickets() {
