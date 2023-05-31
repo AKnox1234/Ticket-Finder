@@ -110,10 +110,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderList">My Orders</a>
+                    </li>
+                </ul>
             </div>
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Sign out</a>
+                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
                 </li>
             </ul>
         </div>
@@ -153,7 +158,8 @@
                                     <p class="card-text float-end" style="font-size: 14px"
                                        th:text="${concert.getConcertDate()}">27th Nov 23</p>
                                 </div>
-                                <p class="card-text" style="font-size: 14px" th:text="${concert.getVenue()} + ', ' + ${concert.getCity()}">Royal Albert
+                                <p class="card-text" style="font-size: 14px"
+                                   th:text="${concert.getVenue()} + ', ' + ${concert.getCity()}">Royal Albert
                                     Hall, London</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">

@@ -1,6 +1,6 @@
 package com.example.ticketfinder.controller;
 
-import com.example.ticketfinder.dao.ConcertDaoDB;
+import com.example.ticketfinder.dao.ConcertDao;
 import com.example.ticketfinder.entities.Concert;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ import java.util.List;
 public class ConcertController {
 
     @Autowired
-    ConcertDaoDB concertDaoDB;
+    ConcertDao concertDao;
 
     @GetMapping("concerts")
     public String displayConcerts(Model model) {
-        List<Concert> concerts = concertDaoDB.getAllConcerts();
+        List<Concert> concerts = concertDao.getAllConcerts();
         model.addAttribute("concerts", concerts);
 
         return "concerts";
@@ -28,7 +28,7 @@ public class ConcertController {
     @GetMapping("concertsBySearch")
     public String displayConcertsBySearch(Model model, HttpServletRequest request) {
         String search = request.getParameter("search");
-        List<Concert> concerts = concertDaoDB.findConcertsBySearch(search);
+        List<Concert> concerts = concertDao.findConcertsBySearch(search);
         model.addAttribute("concerts", concerts);
 
         return "concerts";
@@ -38,7 +38,7 @@ public class ConcertController {
     @GetMapping("viewConcert")
     public String viewConcert(HttpServletRequest request, Model model) {
         int iD = Integer.parseInt(request.getParameter("id"));
-        Concert concert = concertDaoDB.getConcertById(iD);
+        Concert concert = concertDao.getConcertById(iD);
         model.addAttribute("concert", concert);
 
         return "viewConcert";

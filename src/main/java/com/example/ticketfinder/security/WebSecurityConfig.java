@@ -40,18 +40,21 @@ public class WebSecurityConfig{
 //                    auth.requestMatchers("/signIn","/createAccount" ,"/addUser").permitAll();
 //                    auth.anyRequest().authenticated();
                     auth.anyRequest().permitAll();
+
                 })
                 .formLogin()
                 .loginPage("/signIn")
                 .loginProcessingUrl("/process-signIn")
                 .successForwardUrl("/home")
                 .failureUrl("/signIn?error=true")
-                .and().build();
-
-
+                .and()
+                .logout()
+                .logoutUrl("/signOut")
+                .and()
+                .build();
     }
 
-
+//    https://dzone.com/articles/how-to-get-current-logged-in-username-in-spring-se
 //    https://howtodoinjava.com/spring-security/login-form-example/
 //    https://stackoverflow.com/questions/2860943/how-can-i-hash-a-password-in-java
 
