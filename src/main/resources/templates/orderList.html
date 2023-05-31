@@ -1,114 +1,137 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta name="description" content=""/>
-  <meta name="author" content=""/>
-  <title>Shop Item - Start Bootstrap Template</title>
-  <!-- Favicon-->
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-  <!-- Bootstrap icons-->
-  <!-- Core theme CSS (includes Bootstrap)-->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Shop Item - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Bootstrap icons-->
+    <!-- Core theme CSS (includes Bootstrap)-->
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  <link href="css/styles.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet"/>
 
 
-  <style>
-    html,
-    body,
-    .intro {
-      height: 100%;
-    }
+    <style>
+        html,
+        body,
+        .intro {
+            height: 100%;
+        }
 
-    .gradient-custom-2 {
-      /* fallback for old browsers */
-      background: darkgrey;
-    }
+        .gradient-custom-2 {
+            /* fallback for old browsers */
+            background: darkgrey;
+        }
 
-    table td,
-    table th {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+        table td,
+        table th {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-    thead th,
-    tbody th {
-      color: #fff;
-    }
+        thead th,
+        tbody th {
+            color: #fff;
+        }
 
-  tbody td {
-      font-weight: 500;
-      color: rgba(255,255,255,.65);
-    }
-  </style>
+        tbody td {
+            font-weight: 500;
+            color: rgba(255, 255, 255, .65);
+        }
+    </style>
 
 </head>
 
 <body>
 <!-- Navigation-->
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">TicketFinder</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-      </div>
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">TicketFinder</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            </div>
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>
 <!-- Product section-->
 
-  <div class="gradient-custom-2 h-75">
+<div class="gradient-custom-2 h-75 bg-dark-subtle">
     <div class="mask d-flex align-items-center h-100">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-dark table-bordered mb-0">
-                <thead>
-                <tr>
-                  <th scope="col">Order No.</th>
-                  <th scope="col">Artist</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">No. Of Tickets</th>
-                  <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="order : ${usersOrders}">
-                  <th scope="row" th:text="${order.id}">Tiger Nixon</th>
-                  <td th:text="${order.getConcert().artist}">System Architect</td>
-                  <td th:text="${order.getConcert().venue}">tnixon12@example.com</td>
-                  <td th:text="${order.getConcert().concertDate}">61</td>
-                  <td th:text="${order.quantity}">Edinburgh</td>
-                  <td><button type="button" class="btn btn-success">View</button></td>
-                </tr>
-                </tbody>
-              </table>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-bordered mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order No.</th>
+                                <th scope="col">Artist</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">No. Of Tickets</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${usersOrders}">
+                                <th scope="row" th:text="${order.id}">Tiger Nixon</th>
+                                <td th:text="${order.getConcert().artist}">System Architect</td>
+                                <td th:text="${order.getConcert().venue}">tnixon12@example.com</td>
+                                <td th:text="${order.getConcert().concertDate}">61</td>
+                                <td th:text="${order.quantity}">Edinburgh</td>
+                                <td class="col-1">
+                                    <a th:href="@{/viewConcert(id=${order.getConcert().id})}" class="btn btn-success">View
+                                        Event</a>
+                                    <a th:href="@{/deleteOrder(id=${order.id})}" class="btn btn-danger">Refund</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <!-- Footer-->
 <footer class="py-5 bg-dark">
-  <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
 </footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

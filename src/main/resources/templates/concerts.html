@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script src="../assets/js/color-modes.js"></script>
@@ -127,25 +128,22 @@
 
 
 <main>
-
     <section class="py-5 text-center container">
-
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <form class="d-flex m-sm-4" role="search" action="concertsBySearch" method="GET">
+                <form id="searchForm" class="d-flex m-sm-4" role="search" action="concertsBySearch" method="GET">
                     <input name="search" class="form-control me-2" type="search"
                            placeholder="Browse by Artist, City, Venue..."
                            aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <h1 class="fw-light">Showing Results For "Maroon 5"</h1>
+                <h1 class="fw-light" th:text="${'Showing results matching ' + '&quot;' + search.toString() + '&quot;' }" ></h1>
             </div>
         </div>
     </section>
 
     <div class="album bg-dark-subtle">
         <div class="container">
-
             <div class="row">
                 <tr th:each="concert : ${concerts}">
                     <div class="col mt-5">
@@ -175,24 +173,9 @@
             </div>
         </div>
     </div>
-
-
 </main>
-
-<footer class="text-body-secondary py-5">
-    <div class="container">
-        <p class="float-end mb-1">
-            <a href="#">Back to top</a>
-        </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-                href="../getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-</footer>
 
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-
 </body>
 </html>

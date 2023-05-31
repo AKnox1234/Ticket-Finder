@@ -37,9 +37,9 @@ public class WebSecurityConfig{
 
         return http
                 .authorizeHttpRequests(auth -> {
-//                    auth.requestMatchers("/signIn","/createAccount" ,"/addUser").permitAll();
-//                    auth.anyRequest().authenticated();
-                    auth.anyRequest().permitAll();
+                    auth.requestMatchers("/signIn","/createAccount" ,"/addUser").permitAll();
+                    auth.anyRequest().authenticated();
+//                    auth.anyRequest().permitAll();
 
                 })
                 .formLogin()
