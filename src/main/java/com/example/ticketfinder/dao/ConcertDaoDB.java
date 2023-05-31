@@ -5,17 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class ConcertDaoDB {
+public class ConcertDaoDB implements ConcertDao{
 
     @Autowired
     JdbcTemplate jdbc;
-
 
     public Concert getConcertById(int iD) {
 
@@ -26,9 +24,6 @@ public class ConcertDaoDB {
                     "WHERE c.concert_id = ?;";
             Concert concert = jdbc.queryForObject(GET_CONCERT_BY_ID, new ConcertMapper(), iD);
             return concert;
-
-
-
     }
 
     public List<Concert> getAllConcerts() {

@@ -19,28 +19,35 @@
 
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">TicketFinder</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">TicketFinder</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderList">My Orders</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
+                </li>
+            </ul>
         </div>
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Sign out</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+    </nav>
+</header>
 <!-- Product section-->
 <section class="py-5 bg-dark-subtle">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 36rem; height: 30rem;"
-                                       th:src="${concert.artistImage}" /></div>
+                                       th:src="${concert.artistImage}"/></div>
             <div class="col-md-6">
                 <div class="small mb-1" th:text="${concert.concertDate}">SKU: BST-498</div>
                 <h1 class="display-5 fw-bolder" th:text="${concert.artist}">Shop item template</h1>
@@ -48,11 +55,11 @@
                     <span th:text="${concert.venue} + ', ' + ${concert.city}">ffad</span>
                 </div>
                 <p class="lead">
-                <form>
+                <form action="addOrder" method="POST">
                     <div class="form-row align-items-center">
                         <div class="col-auto my-1">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Ticket Type</label>
-                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect">
+                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect" name="seatType">
                                 <option selected>Choose...</option>
                                 <option value="1">Standing</option>
                                 <option value="2">Seated</option>
@@ -60,28 +67,29 @@
                         </div>
                         <div class="col-auto my-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Quantity</label>
-                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect2">
+                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect2" name="quantity">
                                 <option selected>Choose...</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
-
                             </select>
                         </div>
+                    </div>
+                    <div class>
+                        <input type="hidden" name="concertId" th:value="${concert.id}">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Buy Now
+                        </button>
+                        <button class="btn btn-outline-dark flex-shrink-0 spa" type="button" onclick="history.go(-1)">
+                            Back
+                        </button>
                     </div>
                 </form>
                 </select>
                 </p>
-                <div class>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Proceed To Checkout
-                    </button>
-                    <button class="btn btn-outline-dark flex-shrink-0 spa" type="button" onclick="history.go(-1)">
-                        Back
-                    </button>
-                </div>
+
             </div>
         </div>
     </div>

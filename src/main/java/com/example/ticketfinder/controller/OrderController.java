@@ -1,12 +1,61 @@
 package com.example.ticketfinder.controller;
 
-import com.example.ticketfinder.dao.OrderDaoDB;
+import com.example.ticketfinder.dao.*;
+import com.example.ticketfinder.entities.Order;
+import com.example.ticketfinder.entities.User;
+import com.example.ticketfinder.security.CustomUserDetails;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
 
 @Controller
 public class OrderController {
 
     @Autowired
-    OrderDaoDB ticketDaoDB;
+    OrderDao orderDao;
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    ConcertDao concertDao;
+
+    @GetMapping("orderList")
+    public String orderList(Model model) {
+
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String userEmail = ((CustomUserDetails)principal).getUsername();
+    User user = userDao.findByEmail(userEmail);
+    List<Order> usersOrders = orderDao.getAllUsersOrders(user);
+
+    model.addAttribute("usersOrders", usersOrders);
+
+        return "/orderList";
+    }
+
+    @PostMapping("addOrder")
+    public String addOrder(HttpServletRequest request) {
+
+        int concertID = Integer.parseInt(request.getParameter("concertId"));
+        int ticketQuantity = Integer.parseInt(request.getParameter("quantity"));
+//        int price = Integer.parseInt(request.getParameter("price"));
+
+        Order order = new Order();
+        order.setConcert(concertDao.getConcertById(concertID));
+        order.setQuantity(ticketQuantity);
+        order.setPrice(40);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = ((CustomUserDetails)principal).getUsername();
+        User user = userDao.findByEmail(userEmail);
+
+        orderDao.addOrder(order, user.getId());
+
+        return "redirect:/";
+
+
+    }
 }

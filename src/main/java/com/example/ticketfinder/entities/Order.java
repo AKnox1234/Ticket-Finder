@@ -6,9 +6,13 @@ public class Order {
 
     private int id;
 
-    private int concertId;
+    private Concert concert;
 
     private float price;
+
+    private int quantity;
+
+
     public int getId() {
         return id;
     }
@@ -17,12 +21,12 @@ public class Order {
         this.id = id;
     }
 
-    public int getConcertId() {
-        return concertId;
+    public Concert getConcert() {
+        return concert;
     }
 
-    public void setConcertId(int concertId) {
-        this.concertId = concertId;
+    public void setConcert(Concert concert) {
+        this.concert = concert;
     }
 
     public float getPrice() {
@@ -33,16 +37,11 @@ public class Order {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order ticket = (Order) o;
-        return id == ticket.id && concertId == ticket.concertId && Float.compare(ticket.price, price) == 0;
+    public int getQuantity() {
+        return quantity;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, concertId, price);
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
