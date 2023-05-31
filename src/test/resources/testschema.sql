@@ -1,10 +1,10 @@
 DROP
-DATABASE IF EXISTS ticket_finder;
+DATABASE IF EXISTS ticket_finder_test;
 
 create
-database ticket_finder;
+database ticket_finder_test;
 use
-ticket_finder;
+ticket_finder_test;
 
 DROP TABLE IF EXISTS artist;
 CREATE TABLE artist

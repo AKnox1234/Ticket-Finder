@@ -30,6 +30,7 @@ public class ConcertController {
         String search = request.getParameter("search");
         List<Concert> concerts = concertDao.findConcertsBySearch(search);
         model.addAttribute("concerts", concerts);
+        model.addAttribute("search", search);
 
         return "concerts";
 

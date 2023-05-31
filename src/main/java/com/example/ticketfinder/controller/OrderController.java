@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
@@ -26,12 +27,12 @@ public class OrderController {
     @GetMapping("orderList")
     public String orderList(Model model) {
 
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String userEmail = ((CustomUserDetails)principal).getUsername();
-    User user = userDao.findByEmail(userEmail);
-    List<Order> usersOrders = orderDao.getAllUsersOrders(user);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = ((CustomUserDetails)principal).getUsername();
+        User user = userDao.findByEmail(userEmail);
+        List<Order> usersOrders = orderDao.getAllUsersOrders(user);
 
-    model.addAttribute("usersOrders", usersOrders);
+        model.addAttribute("usersOrders", usersOrders);
 
         return "/orderList";
     }
@@ -39,13 +40,13 @@ public class OrderController {
     @PostMapping("addOrder")
     public String addOrder(HttpServletRequest request) {
 
-        int concertID = Integer.parseInt(request.getParameter("concertId"));
+        int concertId = Integer.parseInt(request.getParameter("concertId"));
         int ticketQuantity = Integer.parseInt(request.getParameter("quantity"));
 //        int price = Integer.parseInt(request.getParameter("price"));
 
         Order order = new Order();
-        order.setConcert(concertDao.getConcertById(concertID));
-        order.setQuantity(ticketQuantity);
+        order.setConcert(concertDao.getConcertById(concertId));
+        order.setTicketQuantity(ticketQuantity);
         order.setPrice(40);
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,6 +57,15 @@ public class OrderController {
 
         return "redirect:/";
 
+    }
+
+    @GetMapping("deleteOrder")
+    public String deleteOrder(HttpServletRequest request) {
+
+        int orderId = Integer.parseInt(request.getParameter("id"));
+        orderDao.deleteOrder(orderId);
+
+        return "redirect:orderList";
 
     }
 }

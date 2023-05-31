@@ -5,25 +5,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class ConcertDaoDB implements ConcertDao{
+public class ConcertDaoDB implements ConcertDao {
 
     @Autowired
     JdbcTemplate jdbc;
 
     public Concert getConcertById(int iD) {
 
-            final String GET_CONCERT_BY_ID = "SELECT c.concert_id, a.artist_name, v.venue_name, c.concert_date, a.image, " +
-                    "v.city FROM concert c\n" +
-                    "JOIN venue v ON c.venue_id = v.venue_id\n" +
-                    "Join artist a ON c.artist_id = a.artist_id\n" +
-                    "WHERE c.concert_id = ?;";
-            Concert concert = jdbc.queryForObject(GET_CONCERT_BY_ID, new ConcertMapper(), iD);
-            return concert;
+        final String GET_CONCERT_BY_ID = "SELECT c.concert_id, a.artist_name, v.venue_name, c.concert_date, a.image, " +
+                "v.city FROM concert c\n" +
+                "JOIN venue v ON c.venue_id = v.venue_id\n" +
+                "Join artist a ON c.artist_id = a.artist_id\n" +
+                "WHERE c.concert_id = ?;";
+        Concert concert = jdbc.queryForObject(GET_CONCERT_BY_ID, new ConcertMapper(), iD);
+        return concert;
     }
 
     public List<Concert> getAllConcerts() {
