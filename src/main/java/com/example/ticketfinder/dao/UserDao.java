@@ -4,9 +4,8 @@ import com.example.ticketfinder.entities.User;
 
 public interface UserDao {
 
-    public User findByEmail(String username);
-
-    public void addUser(User user);
+    User findByEmail(String username);
+    void addUser(User user);
 
 
 }
