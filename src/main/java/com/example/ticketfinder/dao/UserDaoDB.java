@@ -27,7 +27,11 @@ public class UserDaoDB {
         return jdbc.queryForObject(FIND_USER_BY_ID, new UserMapper(), id);
     }
 
+    public User findByUsername(String username) {
 
+        final String FIND_USER_BY_EMAIL = "SELECT * FROM tf_user WHERE email = ?";
+        return jdbc.queryForObject(FIND_USER_BY_EMAIL, new UserMapper(), username);
+    }
 
     public void addUser(User user) {
 

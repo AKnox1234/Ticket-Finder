@@ -1,8 +1,11 @@
 package com.example.ticketfinder.entities;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class User {
 
     private int id;
