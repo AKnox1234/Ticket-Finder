@@ -41,9 +41,18 @@ public class ConcertController {
         int iD = Integer.parseInt(request.getParameter("id"));
         Concert concert = concertDao.getConcertById(iD);
         model.addAttribute("concert", concert);
+        //model.addAttribute("currConcId", iD);
 
         return "viewConcert";
-
     }
 
+    /*
+    @GetMapping("viewConcertWithPrice")
+    public String viewConcertWithPrice(HttpServletRequest request, Model model) {
+        int iD = model.getAttribute("currConcId");
+        Concert concert = concertDao.getConcertById(iD);
+        model.addAttribute("concert", concert);
+
+        return "viewConcert";
+    }*/
 }

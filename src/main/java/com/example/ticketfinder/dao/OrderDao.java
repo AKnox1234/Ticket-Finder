@@ -12,4 +12,6 @@ public interface OrderDao {
     void addOrder(Order order, int userId);
 
     void deleteOrder(int orderID);
+
+    public float calcConcertPrice(int id, String seatType);
 }

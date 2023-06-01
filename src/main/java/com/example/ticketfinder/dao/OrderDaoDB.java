@@ -21,7 +21,7 @@ public class OrderDaoDB implements OrderDao {
     public List<Order> getAllUsersOrders(User user) {
 
         final String GET_ALL_USERS_ORDERS =
-                "SELECT o.order_id, a.artist_name, v.venue_name, c.concert_date,c.concert_id, o.quantity\n" +
+                "SELECT o.order_id, a.artist_name, v.venue_name, c.concert_date,c.concert_id, o.quantity, o.price\n" +
 
                         "FROM orders o               \n" +
                         "JOIN concert c ON o.concert_id = c.concert_id\n" +
@@ -55,18 +55,18 @@ public class OrderDaoDB implements OrderDao {
 
     public float calcConcertPrice(int id, String seatType) {
 
-        final String BASE_PRICE = "SELECT a.base_price, v. FROM artist a" +
-                "JOIN concert c ON c.artist_id = a.artist_id" +
+        final String BASE_PRICE = "SELECT a.base_price FROM artist a " +
+                "JOIN concert c ON c.artist_id = a.artist_id " +
                 "WHERE c.concert_id = ?;";
-        float basePrice = jdbc.queryForObject(BASE_PRICE, new FloatMapper(), id);
+        List<Float> basePrice = jdbc.query(BASE_PRICE, new basePriceMapper(), id);
 
         final String SEAT_PRICE = "SELECT DISTINCT s.seat_price from seat s " +
                 "JOIN venue_seat vs ON vs.seat_id = s.seat_id " +
                 "JOIN venue v ON vs.venue_id = v.venue_id " +
-                "WHERE s.seat_type LIKE '%"+seatType+"%';";
-        float seat_price = jdbc.queryForObject(SEAT_PRICE, new FloatMapper(), seatType);
+                "WHERE s.seat_type LIKE '%standing%';";
+        List<Float> seat_price = jdbc.query(SEAT_PRICE, new seatPriceMapper());
 
-        return (basePrice + seat_price);
+        return (basePrice.get(0) + seat_price.get(0));
     }
 
     public static final class OrderMapper implements RowMapper<Order> {
@@ -82,16 +82,25 @@ public class OrderDaoDB implements OrderDao {
             order.setConcert(concert);
             order.setId(rs.getInt("order_id"));
             order.setTicketQuantity(rs.getInt("quantity"));
+            order.setPrice(rs.getFloat("price"));
 
             return order;
         }
     }
 
-    public static final class FloatMapper implements RowMapper<Float> {
+    public static final class basePriceMapper implements RowMapper<Float> {
 
         public Float mapRow(ResultSet rs, int index) throws SQLException {
 
             return rs.getFloat("base_price");
+        }
+    }
+
+    public static final class seatPriceMapper implements RowMapper<Float> {
+
+        public Float mapRow(ResultSet rs, int index) throws SQLException {
+
+            return rs.getFloat("seat_price");
         }
     }
 }
