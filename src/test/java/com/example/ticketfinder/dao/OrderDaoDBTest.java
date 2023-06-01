@@ -2,7 +2,6 @@ package com.example.ticketfinder.dao;
 
 import com.example.ticketfinder.entities.Order;
 import com.example.ticketfinder.entities.User;
-import com.example.ticketfinder.security.WebSecurityConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

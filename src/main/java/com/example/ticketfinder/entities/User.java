@@ -1,10 +1,8 @@
 package com.example.ticketfinder.entities;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 
 @Data
 public class User {
