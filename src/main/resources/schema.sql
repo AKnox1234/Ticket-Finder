@@ -78,11 +78,3 @@ CREATE TABLE orders
     price      float DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS user_order;
-CREATE TABLE user_order
-(
-    user_id  int DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES tf_user (user_id),
-    order_id int DEFAULT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders (order_id)
-);
