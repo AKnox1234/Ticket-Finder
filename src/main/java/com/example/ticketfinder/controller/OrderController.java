@@ -1,6 +1,7 @@
 package com.example.ticketfinder.controller;
 
 import com.example.ticketfinder.dao.*;
+import com.example.ticketfinder.entities.Concert;
 import com.example.ticketfinder.entities.Order;
 import com.example.ticketfinder.entities.User;
 import com.example.ticketfinder.security.CustomUserDetails;
@@ -42,12 +43,17 @@ public class OrderController {
 
         int concertId = Integer.parseInt(request.getParameter("concertId"));
         int ticketQuantity = Integer.parseInt(request.getParameter("quantity"));
+        String seatType = request.getParameter("seatType");
 //        int price = Integer.parseInt(request.getParameter("price"));
 
+        Concert concert = concertDao.getConcertById(concertId);
+        float price = orderDao.calcConcertPrice(concertId, seatType);
+        price *= ticketQuantity;
+
         Order order = new Order();
-        order.setConcert(concertDao.getConcertById(concertId));
+        order.setConcert(concert);
         order.setTicketQuantity(ticketQuantity);
-        order.setPrice(40);
+        order.setPrice(price);
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userEmail = ((CustomUserDetails)principal).getUsername();
