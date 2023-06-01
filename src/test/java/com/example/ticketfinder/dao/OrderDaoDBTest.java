@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -37,7 +39,7 @@ class OrderDaoDBTest {
 
 
     @Test
-    void testAddOrderAndGetUsersOrders() {
+    void testAddDeleteOrderAndAlsoGetUsersOrders() {
 
         User user1 = new User();
         user1.setEmail("GeorgeClooney@hotmail.com");
@@ -81,7 +83,10 @@ class OrderDaoDBTest {
         assertEquals(2, orderDao.getAllUsersOrders(user1).size());
         assertEquals(1, orderDao.getAllUsersOrders(user2).size());
 
+        List<Order> user1Orders = orderDao.getAllUsersOrders(user1);
+        orderDao.deleteOrder(user1Orders.get(1).getId());
+
+        assertEquals(1, orderDao.getAllUsersOrders(user1).size());
 
     }
-
 }
