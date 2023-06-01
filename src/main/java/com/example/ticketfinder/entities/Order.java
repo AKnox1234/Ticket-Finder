@@ -1,7 +1,11 @@
 package com.example.ticketfinder.entities;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Data
 public class Order {
 
     private int id;
@@ -10,38 +14,6 @@ public class Order {
 
     private float price;
 
-    private int quantity;
+    private int ticketQuantity;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Concert getConcert() {
-        return concert;
-    }
-
-    public void setConcert(Concert concert) {
-        this.concert = concert;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

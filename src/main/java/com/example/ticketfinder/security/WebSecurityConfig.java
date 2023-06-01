@@ -5,16 +5,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
+/*
+References:
+ https://dzone.com/articles/how-to-get-current-logged-in-username-in-spring-se
+ https://howtodoinjava.com/spring-security/login-form-example/
+ https://stackoverflow.com/questions/2860943/how-can-i-hash-a-password-in-java
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig{
@@ -53,9 +55,5 @@ public class WebSecurityConfig{
                 .and()
                 .build();
     }
-
-//    https://dzone.com/articles/how-to-get-current-logged-in-username-in-spring-se
-//    https://howtodoinjava.com/spring-security/login-form-example/
-//    https://stackoverflow.com/questions/2860943/how-can-i-hash-a-password-in-java
 
 }

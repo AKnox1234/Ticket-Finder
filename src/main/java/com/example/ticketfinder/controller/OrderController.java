@@ -27,12 +27,12 @@ public class OrderController {
     @GetMapping("orderList")
     public String orderList(Model model) {
 
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String userEmail = ((CustomUserDetails)principal).getUsername();
-    User user = userDao.findByEmail(userEmail);
-    List<Order> usersOrders = orderDao.getAllUsersOrders(user);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = ((CustomUserDetails)principal).getUsername();
+        User user = userDao.findByEmail(userEmail);
+        List<Order> usersOrders = orderDao.getAllUsersOrders(user);
 
-    model.addAttribute("usersOrders", usersOrders);
+        model.addAttribute("usersOrders", usersOrders);
 
         return "/orderList";
     }
@@ -46,7 +46,7 @@ public class OrderController {
 
         Order order = new Order();
         order.setConcert(concertDao.getConcertById(concertId));
-        order.setQuantity(ticketQuantity);
+        order.setTicketQuantity(ticketQuantity);
         order.setPrice(40);
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

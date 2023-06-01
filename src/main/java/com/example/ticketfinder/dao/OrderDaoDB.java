@@ -22,11 +22,13 @@ public class OrderDaoDB implements OrderDao {
 
         final String GET_ALL_USERS_ORDERS =
                 "SELECT o.order_id, a.artist_name, v.venue_name, c.concert_date,c.concert_id, o.quantity\n" +
-                "FROM orders o               \n" +
-                "JOIN concert c ON o.concert_id = c.concert_id\n" +
-                "JOIN artist a ON c.artist_id = a.artist_id\n" +
-                "JOIN venue v ON c.venue_id = v.venue_id\n" +
-                "Where user_id = ?;";
+
+                        "FROM orders o               \n" +
+                        "JOIN concert c ON o.concert_id = c.concert_id\n" +
+                        "JOIN artist a ON c.artist_id = a.artist_id\n" +
+                        "JOIN venue v ON c.venue_id = v.venue_id\n" +
+                        "Where user_id = ?;";
+
         return jdbc.query(GET_ALL_USERS_ORDERS, new OrderMapper(), user.getId());
 
     }
@@ -38,7 +40,7 @@ public class OrderDaoDB implements OrderDao {
         jdbc.update(ADD_ORDER,
                 order.getConcert().getId(),
                 userId,
-                order.getQuantity(),
+                order.getTicketQuantity(),
                 order.getPrice());
     }
 
@@ -63,7 +65,7 @@ public class OrderDaoDB implements OrderDao {
             concert.setConcertDate(rs.getDate("concert_date"));
             order.setConcert(concert);
             order.setId(rs.getInt("order_id"));
-            order.setQuantity(rs.getInt("quantity"));
+            order.setTicketQuantity(rs.getInt("quantity"));
 
             return order;
         }

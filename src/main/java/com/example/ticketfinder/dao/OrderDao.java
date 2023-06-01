@@ -8,6 +8,8 @@ import java.util.List;
 public interface OrderDao {
 
     List<Order> getAllUsersOrders(User user);
+
     void addOrder(Order order, int userId);
+
     void deleteOrder(int orderID);
 }

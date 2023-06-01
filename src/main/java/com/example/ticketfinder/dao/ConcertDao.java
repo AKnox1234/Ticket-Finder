@@ -7,8 +7,9 @@ import java.util.List;
 public interface ConcertDao {
 
     Concert getConcertById(int iD);
-    List<Concert> getAllConcerts();
-    List<Concert> findConcertsBySearch(String search);
 
+    List<Concert> getAllConcerts();
+
+    List<Concert> findConcertsBySearch(String search);
 
 }
