@@ -54,6 +54,38 @@ public class ConcertDaoDB implements ConcertDao {
 
     }
 
+    public void addConcert(Concert concert) {
+
+        final String ADD_CONCERT = "INSERT INTO concert(concert_id, artist_id, venue_id, concert_date) \n" +
+                "VALUES(?,?,?,?);";
+        jdbc.update(ADD_CONCERT,
+                concert.getId(),
+                concert.getArtist(),
+                concert.getVenue(),
+                concert.getConcertDate());
+    }
+
+    public void deleteConcert(int Id) {
+
+        final String DELETE_CONCERT = "DELETE FROM concert\n" +
+                " WHERE concert_id = ?;";
+
+        jdbc.update(DELETE_CONCERT, Id);
+    }
+
+    public void updateConcert(Concert concert, int id) {
+
+        final String UPDATE_CONCERT = "UPDATE concert SET\n" +
+                " artist_id = ?,\n" +
+                " venue_id = ?,\n" +
+                " concert_date = ?\n" +
+                "WHERE concert_id = ?;";
+        jdbc.update(UPDATE_CONCERT,
+                concert.getArtist(),
+                concert.getVenue(),
+                concert.getConcertDate(), id);
+    }
+
     public static final class ConcertMapper implements RowMapper<Concert> {
 
         @Override
