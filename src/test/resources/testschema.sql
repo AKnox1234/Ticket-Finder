@@ -34,16 +34,6 @@ CREATE TABLE seat
     seat_price int          DEFAULT NULL
 );
 
-DROP TABLE IF EXISTS venue_seat;
-CREATE TABLE venue_seat
-(
-    venue_id int DEFAULT NULL,
-    FOREIGN KEY (venue_id) REFERENCES venue (venue_id),
-    seat_id  int DEFAULT NULL,
-    FOREIGN KEY (seat_id) REFERENCES seat (seat_id),
-    quantity int DEFAULT NULL
-);
-
 DROP TABLE IF EXISTS concert;
 CREATE TABLE concert
 (
@@ -54,6 +44,17 @@ CREATE TABLE concert
     FOREIGN KEY (venue_id) REFERENCES venue (venue_id),
     concert_date datetime DEFAULT NULL
 );
+
+DROP TABLE IF EXISTS concert_seat;
+CREATE TABLE concert_seat
+(
+    concert_id int DEFAULT NULL,
+    FOREIGN KEY (concert_id) REFERENCES concert (concert_id),
+    seat_id  int DEFAULT NULL,
+    FOREIGN KEY (seat_id) REFERENCES seat (seat_id),
+    quantity int DEFAULT NULL
+);
+
 
 DROP TABLE IF EXISTS tf_user;
 CREATE TABLE tf_user

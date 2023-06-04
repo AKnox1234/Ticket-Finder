@@ -60,10 +60,10 @@ public class OrderDaoDB implements OrderDao {
                 "WHERE c.concert_id = ?;";
         List<Float> basePrice = jdbc.query(BASE_PRICE, new basePriceMapper(), id);
 
-        final String SEAT_PRICE = "SELECT DISTINCT s.seat_price from seat s " +
-                "JOIN venue_seat vs ON vs.seat_id = s.seat_id " +
-                "JOIN venue v ON vs.venue_id = v.venue_id " +
-                "WHERE s.seat_type LIKE '%standing%';";
+        final String SEAT_PRICE = "SELECT DISTINCT s.seat_price from seat s  \n" +
+                 "JOIN concert_seat cs ON cs.seat_id = s.seat_id  \n" +
+                 "JOIN concert c ON cs.concert_id = c.concert_id  \n" +
+                 "WHERE s.seat_type LIKE '%standing%';";
         List<Float> seat_price = jdbc.query(SEAT_PRICE, new seatPriceMapper());
 
         return (basePrice.get(0) + seat_price.get(0));
