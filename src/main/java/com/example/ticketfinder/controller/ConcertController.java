@@ -46,6 +46,16 @@ public class ConcertController {
         return "viewConcert";
     }
 
+    @GetMapping("seatsLeft")
+    public String ticketNumber(HttpServletRequest request, Model model) {
+        int iD = Integer.parseInt(request.getParameter("id"));
+        List<Float> seatsLeft = concertDao.seatsLeft(iD);
+        int sLeft = (int) (seatsLeft.get(0) + seatsLeft.get(1));
+        model.addAttribute("seatsLeft", sLeft);
+
+        return "seatsLeft";
+    }
+
     /*
     @GetMapping("viewConcertWithPrice")
     public String viewConcertWithPrice(HttpServletRequest request, Model model) {

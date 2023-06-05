@@ -54,6 +54,77 @@ public class ConcertDaoDB implements ConcertDao {
 
     }
 
+    public void addConcert(Concert concert) {
+
+        final String ADD_CONCERT = "INSERT INTO concert(concert_id, artist_id, venue_id, concert_date) \n" +
+                "VALUES(?,?,?,?);";
+        jdbc.update(ADD_CONCERT,
+                concert.getId(),
+                concert.getArtist(),
+                concert.getVenue(),
+                concert.getConcertDate());
+    }
+
+    public void deleteConcert(int Id) {
+
+        final String DELETE_CONCERT = "DELETE FROM concert\n" +
+                " WHERE concert_id = ?;";
+
+        jdbc.update(DELETE_CONCERT, Id);
+    }
+
+    public void updateConcert(Concert concert, int id) {
+
+        final String UPDATE_CONCERT = "UPDATE concert SET\n" +
+                " artist_id = ?,\n" +
+                " venue_id = ?,\n" +
+                " concert_date = ?\n" +
+                "WHERE concert_id = ?;";
+        jdbc.update(UPDATE_CONCERT,
+                concert.getArtist(),
+                concert.getVenue(),
+                concert.getConcertDate(), id);
+    }
+
+    public void removeTicketsForConcert(int Id, String seatType, int quantity) {
+
+        final String REMOVE_TICKETS = "UPDATE concert_seat cs\n" +
+                "JOIN concert c ON c.concert_id = cs.concert_id\n" +
+                "JOIN seat s ON s.seat_id = cs.seat_id\n" +
+                "SET quantity = quantity - ?\n" +
+                "WHERE s.seat_type LIKE '?' AND c.concert_id = ?;";
+        jdbc.update(REMOVE_TICKETS, quantity, seatType, Id);
+    }
+
+    public List<Float> seatsLeft(int Id) {
+
+        final String TICKETS_LEFT = "SELECT quantity FROM concert_seat cs\n" +
+                "JOIN concert c ON c.concert_id = cs.concert_id\n" +
+                "JOIN seat s ON s.seat_id = cs.seat_id\n" +
+                "WHERE c.concert_id = ?;";
+        return jdbc.queryForList(TICKETS_LEFT, Float.class, Id);
+    }
+
+    public boolean validSeatNoCheck(int Id) {
+
+        List<Float> seatNos = seatsLeft(Id);
+        for (float number : seatNos) {
+            if (number < 0) {return false;}
+        }
+
+        return true;
+    }
+
+    public boolean zeroSeatsLeftCheck(int Id) {
+
+        List<Float> seatNos = seatsLeft(Id);
+        for (float number : seatNos) {
+            if (number != 0) {return false;}
+        }
+
+        return true;
+    }
+
     public static final class ConcertMapper implements RowMapper<Concert> {
 
         @Override

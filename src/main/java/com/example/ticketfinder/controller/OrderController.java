@@ -48,6 +48,8 @@ public class OrderController {
 //        int price = Integer.parseInt(request.getParameter("price"));
 
         Concert concert = concertDao.getConcertById(concertId);
+        concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
+
         float price = orderDao.calcConcertPrice(concertId, seatType);
         price *= ticketQuantity;
 

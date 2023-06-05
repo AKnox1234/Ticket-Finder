@@ -24,19 +24,6 @@ INSERT INTO venue (venue_name, capacity, country, city) VALUES ('Nippon Budokan'
 INSERT INTO seat (seat_type, seat_price) VALUES ('standing', 20);
 INSERT INTO seat (seat_type, seat_price) VALUES ('seated', 50);
 
--- data for venue_seat table
-
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (1, 1, 3690);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (1, 2, 1582);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (2, 1, 6681);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (2, 2, 2864);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (3, 1, 4017);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (3, 2, 1721);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (4, 1, 2339);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (4, 2, 1002);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (5, 1, 10151);
-INSERT INTO venue_seat (venue_id, seat_id, quantity) VALUES (5, 2, 4350);
-
 -- data for concert table
 
 INSERT INTO concert(artist_id, venue_id, concert_date) values(1, 1, DATE '2025-10-31');
@@ -264,3 +251,13 @@ INSERT INTO concert(artist_id, venue_id, concert_date) values(9, 5, DATE '2025-0
 INSERT INTO concert(artist_id, venue_id, concert_date) values(9, 5, DATE '2024-06-03');
 INSERT INTO concert(artist_id, venue_id, concert_date) values(9, 5, DATE '2024-05-20');
 INSERT INTO concert(artist_id, venue_id, concert_date) values(9, 5, DATE '2025-08-04');
+
+-- data for concert_seat table
+
+CREATE VIEW concert_seat_view AS
+SELECT c.concert_id AS cid, s.seat_id AS sid, v.capacity/2 AS q FROM concert c
+JOIN seat s JOIN venue v ON v.venue_id = c.venue_id;
+
+INSERT INTO concert_seat (concert_id, seat_id, quantity)
+SELECT cid, sid, q
+FROM concert_seat_view;
