@@ -86,6 +86,45 @@ public class ConcertDaoDB implements ConcertDao {
                 concert.getConcertDate(), id);
     }
 
+    public void removeTicketsForConcert(int Id, String seatType, int quantity) {
+
+        final String REMOVE_TICKETS = "UPDATE concert_seat cs\n" +
+                "JOIN concert c ON c.concert_id = cs.concert_id\n" +
+                "JOIN seat s ON s.seat_id = cs.seat_id\n" +
+                "SET quantity = quantity - ?\n" +
+                "WHERE s.seat_type LIKE '?' AND c.concert_id = ?;";
+        jdbc.update(REMOVE_TICKETS, quantity, seatType, Id);
+    }
+
+    public List<Float> seatsLeft(int Id) {
+
+        final String TICKETS_LEFT = "SELECT quantity FROM concert_seat cs\n" +
+                "JOIN concert c ON c.concert_id = cs.concert_id\n" +
+                "JOIN seat s ON s.seat_id = cs.seat_id\n" +
+                "WHERE c.concert_id = ?;";
+        return jdbc.queryForList(TICKETS_LEFT, Float.class, Id);
+    }
+
+    public boolean validSeatNoCheck(int Id) {
+
+        List<Float> seatNos = seatsLeft(Id);
+        for (float number : seatNos) {
+            if (number < 0) {return false;}
+        }
+
+        return true;
+    }
+
+    public boolean zeroSeatsLeftCheck(int Id) {
+
+        List<Float> seatNos = seatsLeft(Id);
+        for (float number : seatNos) {
+            if (number != 0) {return false;}
+        }
+
+        return true;
+    }
+
     public static final class ConcertMapper implements RowMapper<Concert> {
 
         @Override
