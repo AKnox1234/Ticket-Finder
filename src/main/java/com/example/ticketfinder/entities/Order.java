@@ -1,9 +1,8 @@
 package com.example.ticketfinder.entities;
 
 import lombok.Data;
-import lombok.Getter;
 
-import java.util.Objects;
+import java.text.DecimalFormat;
 
 @Data
 public class Order {
