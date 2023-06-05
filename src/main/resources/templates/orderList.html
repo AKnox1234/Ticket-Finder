@@ -71,42 +71,51 @@
 </header>
 <!-- Product section-->
 
-<div class="gradient-custom-2 h-75 bg-dark-subtle">
+<div class=" h-100 bg-dark-subtle">
+    <div>
+        <div class="container py-5">
+            <section class="text-center container">
+                <div class="row py-lg-5">
+                    <h1>Personal Order List</h1>
+                </div>
+            </section>
 
-  <div class="mask d-flex align-items-center h-100">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-10">
-          <div class="table-responsive">
-            <table class="table table-dark table-bordered mb-0">
-              <thead>
-              <tr>
-                <th scope="col">Order No.</th>
-                <th scope="col">Artist</th>
-                <th scope="col">Location</th>
-                <th scope="col">Date</th>
-                <th scope="col">No. Of Tickets</th>
-                <th scope="col">Order Price</th>
-                <th scope="col">Action</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="order : ${usersOrders}">
-                <th scope="row" th:text="${order.id}">Tiger Nixon</th>
-                <td th:text="${order.getConcert().artist}">System Architect</td>
-                <td th:text="${order.getConcert().venue}">tnixon12@example.com</td>
-                <td th:text="${order.getConcert().concertDate}">61</td>
-                <td th:text="${order.ticketQuantity}">Edinburgh</td>
-                <td th:text="${order.price}">Edinburgh</td>
-                <td class="col-1">
-                  <a th:href="@{/viewConcert(id=${order.getConcert().id})}" class="btn btn-success">View
-                    Event</a>
-                  <a th:href="@{/deleteOrder(id=${order.id})}" class="btn btn-danger">Refund</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <div class="table">
+                        <table class="table table-dark table-bordered mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order No.</th>
+                                <th scope="col">Artist</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">No. Of Tickets</th>
+                                <th scope="col">Order Price</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${usersOrders}">
+                                <th scope="row" th:text="${order.id}">Tiger Nixon</th>
+                                <td th:text="${order.getConcert().artist}">System Architect</td>
+                                <td th:text="${order.getConcert().venue}">tnixon12@example.com</td>
+                                <td th:text="${order.getConcert().concertDate}">61</td>
+                                <td th:text="${order.ticketQuantity}">Edinburgh</td>
+                                <td th:text="${#numbers.formatCurrency(order.price)}">£100</td>
+                                <td class="col-1">
+                                    <a th:href="@{/viewConcert(id=${order.getConcert().id})}" class="btn btn-success">View
+                                        Event</a>
+                                    <a th:href="@{/deleteOrder(id=${order.id})}" class="btn btn-danger">Refund</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            >>>>>>> master
         </div>
     </div>
 </div>
