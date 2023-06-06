@@ -5,9 +5,14 @@ import com.example.ticketfinder.entities.Concert;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -44,6 +49,40 @@ public class ConcertController {
         //model.addAttribute("currConcId", iD);
 
         return "viewConcert";
+    }
+
+    @GetMapping("editConcertPage")
+    public String toEditPage(HttpServletRequest request, Model model) {
+
+        int Id = Integer.parseInt(request.getParameter("id"));
+        Concert concert = concertDao.getConcertById(Id);
+        model.addAttribute("concertEditAdmin", concert);
+        model.addAttribute("editConcId", Id);
+
+        return "editConcertPage";
+    }
+
+    @Transactional
+    @PostMapping("editConcert")
+    public String editConcert(HttpServletRequest request, Model model) throws ParseException {
+
+        int iD = Integer.parseInt(request.getParameter("id"));
+        String artist = request.getParameter("artist");
+        String venue = request.getParameter("venue");
+        Date date = new SimpleDateFormat("yyy-MM-dd").parse(request.getParameter("date"));
+
+        Concert newConcert = new Concert();
+
+        newConcert.setArtist(artist);
+        newConcert.setVenue(venue);
+        newConcert.setConcertDate(date);
+
+        concertDao.updateConcert(newConcert, iD);
+
+        List<Concert> concerts = concertDao.getAllConcerts();
+        model.addAttribute("concerts", concerts);
+
+        return "dataListAdmin";
     }
 
     @GetMapping("seatsLeft")
