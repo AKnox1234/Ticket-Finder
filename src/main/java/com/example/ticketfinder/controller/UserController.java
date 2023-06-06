@@ -54,9 +54,7 @@ public class UserController {
             model.addAttribute("concerts", concerts);
 
             return "dataListAdmin";
-        }
-
-        else {return "redirect:/index";}
+        } else {return "/";}
     }
 
     @GetMapping("signIn")
