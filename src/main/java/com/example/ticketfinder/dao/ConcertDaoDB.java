@@ -76,11 +76,11 @@ public class ConcertDaoDB implements ConcertDao {
 
     public void updateConcert(Concert concert, int id) {
 
-        final String GET_ARTIST_ID = "SELECT artist_id FROM artist a WHERE a.artist_name LIKE '?';";
+        final String GET_ARTIST_ID = "SELECT artist_id FROM artist a WHERE a.artist_name = ?;";
         List<Integer> artistId = jdbc.query(GET_ARTIST_ID,
                 new ConcertDaoDB.ArtistIdMapper(), concert.getArtist());
 
-        final String GET_VENUE_ID = "SELECT venue_id FROM venue v WHERE v.venue_name LIKE '?';";
+        final String GET_VENUE_ID = "SELECT venue_id FROM venue v WHERE v.venue_name = ?;";
         List<Integer> venueId = jdbc.query(GET_VENUE_ID,
                 new ConcertDaoDB.VenueIdMapper(), concert.getVenue());
 
