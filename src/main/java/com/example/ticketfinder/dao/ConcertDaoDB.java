@@ -32,7 +32,8 @@ public class ConcertDaoDB implements ConcertDao {
         final String GET_ALL_CONCERTS = "SELECT c.concert_id, a.artist_name, v.venue_name, c.concert_date, a.image, " +
                 "v.city FROM concert c\n" +
                 "JOIN venue v ON c.venue_id = v.venue_id\n" +
-                "Join artist a ON c.artist_id = a.artist_id;";
+                "Join artist a ON c.artist_id = a.artist_id\n" +
+                "ORDER BY c.concert_id;";
         return jdbc.query(GET_ALL_CONCERTS, new ConcertMapper());
 
     }
@@ -75,14 +76,23 @@ public class ConcertDaoDB implements ConcertDao {
 
     public void updateConcert(Concert concert, int id) {
 
+        final String GET_ARTIST_ID = "SELECT artist_id FROM artist a WHERE a.artist_name = ?;";
+        List<Integer> artistId = jdbc.query(GET_ARTIST_ID,
+                new ConcertDaoDB.ArtistIdMapper(), concert.getArtist());
+
+        final String GET_VENUE_ID = "SELECT venue_id FROM venue v WHERE v.venue_name = ?;";
+        List<Integer> venueId = jdbc.query(GET_VENUE_ID,
+                new ConcertDaoDB.VenueIdMapper(), concert.getVenue());
+
         final String UPDATE_CONCERT = "UPDATE concert SET\n" +
                 " artist_id = ?,\n" +
                 " venue_id = ?,\n" +
                 " concert_date = ?\n" +
                 "WHERE concert_id = ?;";
+
         jdbc.update(UPDATE_CONCERT,
-                concert.getArtist(),
-                concert.getVenue(),
+                artistId.get(0),
+                venueId.get(0),
                 concert.getConcertDate(), id);
     }
 
@@ -138,6 +148,22 @@ public class ConcertDaoDB implements ConcertDao {
             concert.setConcertDate(rs.getDate("concert_date"));
 
             return concert;
+        }
+    }
+
+    public static final class ArtistIdMapper implements RowMapper<Integer> {
+
+        public Integer mapRow(ResultSet rs, int index) throws SQLException {
+
+            return rs.getInt("artist_id");
+        }
+    }
+
+    public static final class VenueIdMapper implements RowMapper<Integer> {
+
+        public Integer mapRow(ResultSet rs, int index) throws SQLException {
+
+            return rs.getInt("venue_id");
         }
     }
 
