@@ -1,6 +1,8 @@
 package com.example.ticketfinder.controller;
 
 //import ch.qos.logback.core.model.Model;
+import com.example.ticketfinder.security.CustomUserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import com.example.ticketfinder.dao.ConcertDao;
 import com.example.ticketfinder.dao.UserDao;
@@ -25,7 +27,6 @@ public class UserController {
     @Autowired
     ConcertDao concertDao;
 
-
     @PreAuthorize("hasAuthority('User')")
     @PostMapping("addUser")
     public String createUser(String firstName, String lastName, String email, String password) {
@@ -44,17 +45,18 @@ public class UserController {
     }
 
     @GetMapping("isAdminCHeck")
-    public String createUser(HttpServletRequest request, Model model) {
+    public String isAdminCheck(Model model) {
 
-        String email = request.getParameter("username");
-        User user = userDao.findByEmail(email);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail = ((CustomUserDetails)principal).getUsername();
+        User user = userDao.findByEmail(userEmail);
 
         if (user.getUserType().equalsIgnoreCase("admin")) {
             List<Concert> concerts = concertDao.getAllConcerts();
             model.addAttribute("concerts", concerts);
 
             return "dataListAdmin";
-        } else {return "/";}
+        } else {return "redirect:/";}
     }
 
     @GetMapping("signIn")
