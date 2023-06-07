@@ -1,0 +1,198 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "com.example.ticketfinder.controller.OrderController#addOrder(HttpServletRequest)",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "com.example.ticketfinder.controller.OrderController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_700473290 { 
+   	label=ticketfinder
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   subgraph cluster_1207427427 { 
+   	label=OrderController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   OrderController26575897XXXaddOrder63083346[
+	label="+ addOrder()"
+	style=filled
+	fillcolor=white
+	tooltip="OrderController
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_1596121822 { 
+   	label=UserDaoDB
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   UserDaoDB172926553XXXfindByEmail1808118735[
+	label="+ findByEmail()"
+	style=filled
+	fillcolor=white
+	tooltip="UserDaoDB
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_1821031337 { 
+   	label=OrderDaoDB
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   OrderDaoDB172926553XXXaddOrder1594694771[
+	label="+ addOrder()"
+	style=filled
+	fillcolor=white
+	tooltip="OrderDaoDB
+
+null"
+	fontcolor=darkgreen
+];
+
+OrderDaoDB172926553XXXcalcConcertPrice1142137748[
+	label="+ calcConcertPrice()"
+	style=filled
+	fillcolor=white
+	tooltip="OrderDaoDB
+
+&#10; &#10;  @param id&#10;  @param seatType&#10;  @return float&#10;  Calculates the price of a single concert ticket&#10;  from artist's base price and seat price based on seat type.&#10; "
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_355043729 { 
+   	label=ConcertDaoDB
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ConcertDaoDB172926553XXXgetConcertById104431[
+	label="+ getConcertById()"
+	style=filled
+	fillcolor=white
+	tooltip="ConcertDaoDB
+
+null"
+	fontcolor=darkgreen
+];
+
+ConcertDaoDB172926553XXXremoveTicketsForConcert1958979303[
+	label="+ removeTicketsForConcert()"
+	style=filled
+	fillcolor=white
+	tooltip="ConcertDaoDB
+
+&#10; &#10;  @param Id&#10;  @param seatType&#10;  @param quantity&#10;  Once an order is placed, this method removes the number of tickets corresponding&#10;  to the order's ticket quantity and seat type&#10; "
+	fontcolor=darkgreen
+];
+} 
+} 
+} 
+
+'edges    
+OrderController26575897XXXaddOrder63083346 -> ConcertDaoDB172926553XXXgetConcertById104431;
+OrderController26575897XXXaddOrder63083346 -> ConcertDaoDB172926553XXXremoveTicketsForConcert1958979303;
+OrderController26575897XXXaddOrder63083346 -> OrderDaoDB172926553XXXaddOrder1594694771;
+OrderController26575897XXXaddOrder63083346 -> OrderDaoDB172926553XXXcalcConcertPrice1142137748;
+OrderController26575897XXXaddOrder63083346 -> UserDaoDB172926553XXXfindByEmail1808118735;
+    
+}
+@enduml
