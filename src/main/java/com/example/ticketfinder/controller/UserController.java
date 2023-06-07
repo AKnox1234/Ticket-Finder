@@ -1,21 +1,21 @@
 package com.example.ticketfinder.controller;
 
-//import ch.qos.logback.core.model.Model;
+import com.example.ticketfinder.exception.TicketFinderDataPersistenceException;
 import com.example.ticketfinder.security.CustomUserDetails;
+import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import com.example.ticketfinder.dao.ConcertDao;
 import com.example.ticketfinder.dao.UserDao;
 import com.example.ticketfinder.entities.Concert;
 import com.example.ticketfinder.entities.User;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 @Controller
@@ -27,52 +27,54 @@ public class UserController {
     @Autowired
     ConcertDao concertDao;
 
-    @PreAuthorize("hasAuthority('User')")
-    @PostMapping("addUser")
-    public String createUser(String firstName, String lastName, String email, String password) {
+    @GetMapping("/create-account")
+    public String createAccount(Model model) {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(password));
-        user.setUserType("User");
+        model.addAttribute("user", new User());
 
-        userDao.addUser(user);
-
-        return "redirect:/createAccount";
+        return "create-account";
     }
 
-    @GetMapping("isAdminCHeck")
-    public String isAdminCheck(Model model) {
+    @PostMapping("add-user")
+    public String createUser(@Valid User user, BindingResult result, Model model) {
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userEmail = ((CustomUserDetails)principal).getUsername();
-        User user = userDao.findByEmail(userEmail);
+        boolean hasErrors = result.hasErrors();
 
-        if (user.getUserType().equalsIgnoreCase("admin")) {
+        if(hasErrors) {
+            return "create-account";
+        } else {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setUserType("User");
+
+            try{
+                userDao.addUser(user);
+            }
+            catch (TicketFinderDataPersistenceException e) {
+                return "redirect:/create-account";
+            }
+            return "redirect:/create-account";
+        }
+    }
+
+    @GetMapping("admin")
+    public String admin(Model model) {
+
             List<Concert> concerts = concertDao.getAllConcerts();
             model.addAttribute("concerts", concerts);
 
-            return "dataListAdmin";
-        } else {return "redirect:/";}
+            return "data-list-admin";
     }
 
-    @GetMapping("signIn")
+    @GetMapping("sign-in")
     public String signIn() {
 
-        return "signIn";
+        return "sign-in";
     }
 
-    @GetMapping("signOut")
+    @GetMapping("sign-out")
     public String signOut() {
-        return "signIn";
-    }
-
-    @GetMapping("createAccount")
-    public String createAccount() {
-        return "createAccount";
+        return "sign-in";
     }
 
     @PostMapping("home")

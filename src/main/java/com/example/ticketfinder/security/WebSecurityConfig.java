@@ -39,19 +39,20 @@ public class WebSecurityConfig{
 
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/signIn","/createAccount" ,"/addUser").permitAll();
+                    auth.requestMatchers("/sign-in","/create-account" ,"/add-user").permitAll();
+                    auth.requestMatchers("/admin", "/data-list-admin", "/edit-concert").hasAuthority("Admin");
                     auth.anyRequest().authenticated();
 //                    auth.anyRequest().permitAll();
 
                 })
                 .formLogin()
-                .loginPage("/signIn")
+                .loginPage("/sign-in")
                 .loginProcessingUrl("/process-signIn")
                 .successForwardUrl("/home")
-                .failureUrl("/signIn?error=true")
+                .failureUrl("/sign-in?error=true")
                 .and()
                 .logout()
-                .logoutUrl("/signOut")
+                .logoutUrl("/sign-out")
                 .and()
                 .build();
     }

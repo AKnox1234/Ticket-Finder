@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +29,7 @@ public class ConcertController {
 
     }
 
-    @GetMapping("concertsBySearch")
+    @GetMapping("concerts-by-search")
     public String displayConcertsBySearch(Model model, HttpServletRequest request) {
         String search = request.getParameter("search");
         List<Concert> concerts = concertDao.findConcertsBySearch(search);
@@ -41,29 +40,28 @@ public class ConcertController {
 
     }
 
-    @GetMapping("viewConcert")
+    @GetMapping("view-concert")
     public String viewConcert(HttpServletRequest request, Model model) {
         int iD = Integer.parseInt(request.getParameter("id"));
         Concert concert = concertDao.getConcertById(iD);
         model.addAttribute("concert", concert);
-        //model.addAttribute("currConcId", iD);
 
-        return "viewConcert";
+        return "view-concert";
     }
 
-    @GetMapping("editConcertPage")
+    @GetMapping("edit-concert")
     public String toEditPage(HttpServletRequest request, Model model) {
 
-        int Id = Integer.parseInt(request.getParameter("id"));
-        Concert concert = concertDao.getConcertById(Id);
+        int iD = Integer.parseInt(request.getParameter("id"));
+        Concert concert = concertDao.getConcertById(iD);
         model.addAttribute("concertEditAdmin", concert);
-        model.addAttribute("editConcId", Id);
+        model.addAttribute("editConcId", iD);
 
-        return "editConcertPage";
+        return "edit-concert";
     }
 
     @Transactional
-    @PostMapping("editConcert")
+    @PostMapping("edit-concert")
     public String editConcert(HttpServletRequest request, Model model) throws ParseException {
 
         int iD = Integer.parseInt(request.getParameter("id"));
@@ -82,26 +80,16 @@ public class ConcertController {
         List<Concert> concerts = concertDao.getAllConcerts();
         model.addAttribute("concerts", concerts);
 
-        return "dataListAdmin";
+        return "data-list-admin";
     }
 
-    @GetMapping("seatsLeft")
-    public String ticketNumber(HttpServletRequest request, Model model) {
-        int iD = Integer.parseInt(request.getParameter("id"));
-        List<Float> seatsLeft = concertDao.seatsLeft(iD);
-        int sLeft = (int) (seatsLeft.get(0) + seatsLeft.get(1));
-        model.addAttribute("seatsLeft", sLeft);
-
-        return "seatsLeft";
-    }
-
-    /*
-    @GetMapping("viewConcertWithPrice")
-    public String viewConcertWithPrice(HttpServletRequest request, Model model) {
-        int iD = model.getAttribute("currConcId");
-        Concert concert = concertDao.getConcertById(iD);
-        model.addAttribute("concert", concert);
-
-        return "viewConcert";
-    }*/
+//    @GetMapping("seats-left")
+//    public String ticketNumber(HttpServletRequest request, Model model) {
+//        int iD = Integer.parseInt(request.getParameter("id"));
+//        List<Float> seatsLeft = concertDao.seatsLeft(iD);
+//        int sLeft = (int) (seatsLeft.get(0) + seatsLeft.get(1));
+//        model.addAttribute("seatsLeft", sLeft);
+//
+//        return "seats-left";
+//    }
 }

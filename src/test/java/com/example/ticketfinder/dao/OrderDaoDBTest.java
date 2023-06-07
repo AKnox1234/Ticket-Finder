@@ -2,6 +2,7 @@ package com.example.ticketfinder.dao;
 
 import com.example.ticketfinder.entities.Order;
 import com.example.ticketfinder.entities.User;
+import com.example.ticketfinder.exception.TicketFinderDataPersistenceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,13 @@ class OrderDaoDBTest {
 
         jdbcTemplate.update("delete from orders");
         jdbcTemplate.update("delete from tf_user");
+//        jdbcTemplate.update("INSERT INTO tf_user(first_name, last_name, email, user_password, user_type) " +
+//                "values('admin', '', 'admin@admin.com', '$2a$12$E9s3H2I8ZqAd1.YAA8XGquhf3fe0NL/.0HK7RoQqJ4Xc6iRhbbNE6', 'Admin');");
     }
 
 
     @Test
-    void testAddDeleteOrderAndAlsoGetUsersOrders() {
+    void testAddDeleteOrderAndAlsoGetUsersOrders() throws TicketFinderDataPersistenceException {
 
         User user1 = new User();
         user1.setEmail("GeorgeClooney@hotmail.com");

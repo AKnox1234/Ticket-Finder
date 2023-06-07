@@ -2,8 +2,6 @@ package com.example.ticketfinder.entities;
 
 import lombok.Data;
 
-import java.text.DecimalFormat;
-
 @Data
 public class Order {
 
@@ -14,5 +12,4 @@ public class Order {
     private float price;
 
     private int ticketQuantity;
-
 }

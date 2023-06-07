@@ -33,13 +33,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="orderList">My Orders</a>
+                        <a class="nav-link" href="order-list">My Orders</a>
                     </li>
                 </ul>
             </div>
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
+                    <a class="nav-link active" aria-current="page" href="sign-out">Sign out</a>
                 </li>
             </ul>
         </div>
@@ -55,34 +55,28 @@
                 <div class="small mb-1" th:text="${concert.concertDate}">SKU: BST-498</div>
                 <h1 class="display-5 fw-bolder" th:text="${concert.artist}">Shop item template</h1>
                 <div class="fs-5 mb-5">
-                    <span th:text="${concert.venue} + ', ' + ${concert.city}">ffad</span>
+                    <span th:text="${concert.venue} + ', ' + ${concert.city}"></span>
                 </div>
                 <p class="lead">
-                <form action="addOrder" method="POST">
+                <form action="add-order" method="POST">
                     <div class="form-row align-items-center">
                         <div class="col-auto my-1">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Ticket Type</label>
-                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect" name="seatType">
-                                <option selected>Choose...</option>
+                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect" name="seatType" required>
+                                <option value="">Choose...</option>
                                 <option value="standing">Standing</option>
                                 <option value="seated">Seated</option>
                             </select>
                         </div>
                         <div class="col-auto my-3">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Quantity</label>
-                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect2" name="quantity">
-                                <option selected>Choose...</option>
+                            <select class="custom-select mr-sm-2 rounded" id="inlineFormCustomSelect2" name="quantity" required>
+                                <option value="">Choose...</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                        </div>
-                        <div class="col-4">
-                            <div class="input-group mb-3">
-                                <button class="btn btn-outline-dark" type="button" id="button-addon1" >Check Price</button>
-                                <input type="text" class="form-control" placeholder="£0.00" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                            </div>
                         </div>
                     </div>
                     <div class>
