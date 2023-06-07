@@ -131,16 +131,34 @@
                 <label for="artist" class="col-3 col-form-label">
                     Artist</label>
                 <div class="col-9">
-                    <input type="text" name="artist" id="artist"
-                           class="form-control"  th:value="${concertEditAdmin.getArtist()}"/>
+                    <select class="custom-select mr-sm-2 rounded" id="artist" name="artist"
+                            required>
+                        <option th:text="${concertEditAdmin.getArtist()}">Choose...</option>
+                        <option value="Rammstein">Rammstein</option>
+                        <option value="Polyphia">Polyphia</option>
+                        <option value="Five Finger Death Punch">Fiver Finger Death Punch</option>
+                        <option value="Caravan Palace">Caravan Palace</option>
+                        <option value="The Notorious B.I.G.">The Notorious B.I.G.</option>
+                        <option value="Maroon 5">Maroon 5</option>
+                        <option value="Queen">Queen</option>
+                        <option value="Eminem">Eminem</option>
+                        <option value="Imagine Dragons">Imagine Dragons</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="venue" class="col-3 col-form-label">
                     Venue</label>
                 <div class="col-9">
-                    <input type="text" name="venue" id="venue"
-                           class="form-control"  th:value="${concertEditAdmin.getVenue()}"/>
+                    <select class="custom-select mr-sm-2 rounded" id="venue" name="venue"
+                            required>
+                        <option th:text="${concertEditAdmin.getVenue()}">Choose...</option>
+                        <option value="Royal Albert Hall">Royal Albert Hall</option>
+                        <option value="Red Rocks Amphitheatre">Red Rocks Amphitheatre</option>
+                        <option value="Sydney Opera House">Sydney Opera House</option>
+                        <option value="Eventim Apollo">Eventim Apollo</option>
+                        <option value="Nippon Budokan">Nippon Budokan</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
