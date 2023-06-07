@@ -52,5 +52,20 @@ class ConcertDaoDBTest {
         assertEquals(0, concerts.size());
     }
 
+    @Test
+    public void testUpdateConcert() {
+
+        Concert concert = concertDao.getConcertById(2);
+        String originalArtist = concert.getArtist();
+
+        concert.setArtist("Eminem");
+
+        concertDao.updateConcert(concert, concert.getId());
+
+        Concert newConcert = concertDao.getConcertById(2);
+
+        assertNotEquals(originalArtist, newConcert.getArtist());
+    }
+
 
 }
