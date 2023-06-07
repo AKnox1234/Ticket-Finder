@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserDaoDBTest {
 
+    // inject dependencies
     @Autowired
     UserDao userDao;
     @Autowired
@@ -25,14 +25,19 @@ class UserDaoDBTest {
     @BeforeEach
     public void setUp() {
 
+        // make sure the order and user table is reset everytime before test is ran
         jdbcTemplate.update("delete from orders");
         jdbcTemplate.update("delete from tf_user");
 
     }
 
+    /**
+     * Tests whether both add user and find by email works
+     */
     @Test
     void testAddUserAndFindByEmail() throws TicketFinderDataPersistenceException {
 
+        // create the user
         User testUser = new User();
         testUser.setEmail("GeorgeClooney@hotmail.com");
         testUser.setPassword("hollywood");
@@ -40,15 +45,24 @@ class UserDaoDBTest {
         testUser.setLastName("Clooney");
         testUser.setUserType("User");
 
+        // add the user to the database
         userDao.addUser(testUser);
+
+        // see if the correct user can be found through their email
         User foundUser = userDao.findByEmail(testUser.getEmail());
+
+        // if emails match, correct user was found
         assertEquals(testUser.getEmail(), foundUser.getEmail());
 
     }
 
+    /**
+     * Tests whether a duplicate email will throw the appropriate exception
+     */
     @Test
-    void testDuplicateEmailThrowsPersistenceException() throws TicketFinderDataPersistenceException {
+    void testDuplicateEmailThrowsPersistenceException() {
 
+        // create the duplicate users
         User testUser1 = new User();
         testUser1.setEmail("GeorgeClooney@hotmail.com");
         testUser1.setPassword("hollywood");
@@ -65,12 +79,13 @@ class UserDaoDBTest {
 
         assertThrows(TicketFinderDataPersistenceException.class,
                 () ->{
+                    // try to add both the users -> should throw the error
                     userDao.addUser(testUser1);
                     userDao.addUser(testUser2);
                 });
 
+        // only one user should have been added
         assertEquals(1, userDao.getAllUsers().size());
     }
-
 }
 

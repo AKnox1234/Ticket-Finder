@@ -11,11 +11,18 @@ public class CustomUserDetails implements UserDetails {
 
     private User user;
 
+    // inject dependencies through constructor
     public CustomUserDetails(User user) {
         super();
         this.user = user;
     }
 
+    /**
+     *
+     * @return
+     * gets the logged-in users user type from the user_type column
+     * within the database and adds it to the authority list
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(user.getUserType()));

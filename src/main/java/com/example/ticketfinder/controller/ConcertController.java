@@ -18,9 +18,16 @@ import java.util.List;
 @Controller
 public class ConcertController {
 
+    // inject dependencies
     @Autowired
     ConcertDao concertDao;
 
+    /**
+     *
+     * @param model
+     * @return
+     * Returns all concerts within the database
+     */
     @GetMapping("concerts")
     public String displayConcerts(Model model) {
 
@@ -31,11 +38,23 @@ public class ConcertController {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param model
+     * @return
+     * Allows user to input search parameters, then
+     * appropriate concert objects are returned
+     */
     @GetMapping("concerts-by-search")
     public String displayConcertsBySearch(Model model, HttpServletRequest request) {
 
+        // retrieve user's search request
         String search = request.getParameter("search");
+        // populate the list of concerts filtered by user search
         List<Concert> concerts = concertDao.findConcertsBySearch(search);
+
+        // populate model for frontend
         model.addAttribute("concerts", concerts);
         model.addAttribute("search", search);
 
@@ -62,15 +81,29 @@ public class ConcertController {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param model
+     * @return
+     * Allows user to view an individual concert
+     */
     @GetMapping("view-concert")
     public String viewConcert(HttpServletRequest request, Model model) {
 
+        // retrieve the id of the concert to perform the correct read
+        // from database
         int iD = Integer.parseInt(request.getParameter("id"));
+
+        // find the concert data
         Concert concert = concertDao.getConcertById(iD);
+
+        // add the concert to the model
         model.addAttribute("concert", concert);
 
         return "view-concert";
     }
+
 
     @GetMapping("edit-concert")
     public String toEditPage(HttpServletRequest request, Model model) {
@@ -90,7 +123,7 @@ public class ConcertController {
      * @param model
      * @return
      * @throws ParseException
-     * Method used for admin CRUD feature: editing the detalis of a concert
+     * Method used for admin CRUD feature: editing the details of a concert
      */
     @Transactional
     @PostMapping("edit-concert")

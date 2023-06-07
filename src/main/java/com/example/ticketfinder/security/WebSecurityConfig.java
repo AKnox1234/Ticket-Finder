@@ -21,9 +21,16 @@ References:
 @EnableWebSecurity
 public class WebSecurityConfig{
 
+    // inject dependencies
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /**
+     *
+     * @return
+     * processes authentication requests and returns an
+     * authenticated object with full credentials
+     */
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -32,6 +39,14 @@ public class WebSecurityConfig{
         return provider;
     }
 
+    /**
+     *
+     * @param http
+     * @return
+     * @throws Exception
+     * Controls access to the website
+     * Controls the webpages that users, admins and not logged-in users can access
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -42,7 +57,10 @@ public class WebSecurityConfig{
                     auth.requestMatchers("/sign-in","/create-account" ,"/add-user").permitAll();
                     auth.requestMatchers("/admin", "/data-list-admin", "/edit-concert").hasAuthority("Admin");
                     auth.anyRequest().authenticated();
-//                    auth.anyRequest().permitAll();
+
+                    // if security is giving problems, comment out lines 49-51 and uncomment out line below
+                    // this will stop authorization being needed to visit webpages
+                    // auth.anyRequest().permitAll();
 
                 })
                 .formLogin()
@@ -56,5 +74,4 @@ public class WebSecurityConfig{
                 .and()
                 .build();
     }
-
 }

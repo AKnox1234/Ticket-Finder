@@ -11,9 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {
 
+    // inject dependency
     @Autowired
     private UserDaoDB userDaoDB;
 
+    /**
+     *
+     * @param email
+     * @return
+     * @throws UsernameNotFoundException
+     * returns the user if they exist within the database
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

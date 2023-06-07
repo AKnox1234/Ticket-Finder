@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 @Repository
 public class ConcertDaoDB implements ConcertDao {
 
+    // inject dependencies
     @Autowired
     JdbcTemplate jdbc;
 
@@ -203,8 +203,15 @@ public class ConcertDaoDB implements ConcertDao {
 
     public static final class ConcertMapper implements RowMapper<Concert> {
 
+        /**
+         * @param rs
+         * @param index
+         * Unmarshalls concert data from the database into a concert object
+         */
         @Override
         public Concert mapRow(ResultSet rs, int index) throws SQLException {
+
+            // populate concert objects fields with appropriate data
             Concert concert = new Concert();
             concert.setId(rs.getInt("concert_id"));
             concert.setArtist(rs.getString("artist_name"));
@@ -213,6 +220,7 @@ public class ConcertDaoDB implements ConcertDao {
             concert.setCity(rs.getString("city"));
             concert.setConcertDate(rs.getDate("concert_date"));
 
+            // return the concert object
             return concert;
         }
     }

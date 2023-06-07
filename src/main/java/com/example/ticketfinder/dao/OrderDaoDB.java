@@ -7,15 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.List;
 
 @Repository
 public class OrderDaoDB implements OrderDao {
 
+    // inject dependencies
     @Autowired
     JdbcTemplate jdbc;
 
@@ -35,10 +34,20 @@ public class OrderDaoDB implements OrderDao {
 
     }
 
+
+    /**
+     * @param order
+     * @param userId
+     * adds the desired order into the database
+     * in the users name
+     */
     public void addOrder(Order order, int userId) {
 
+        // SQL required to perform the add feature
         final String ADD_ORDER = "INSERT INTO orders(concert_id, user_id, quantity, price) \n" +
                 "VALUES(?,?,?,?);";
+
+        // use JDBCTemplate and SQL to perform the function
         jdbc.update(ADD_ORDER,
                 order.getConcert().getId(),
                 userId,
@@ -46,11 +55,17 @@ public class OrderDaoDB implements OrderDao {
                 order.getPrice());
     }
 
+    /**
+     * @param orderID
+     * deletes the desired order from the database
+     */
     public void deleteOrder(int orderID) {
 
+        // SQL required to perform the delete feature
         final String DELETE_ORDER = "DELETE FROM orders\n" +
                 " WHERE order_id = ?;";
 
+        // use JDBCTemplate and SQL to perform the function
         jdbc.update(DELETE_ORDER, orderID);
 
     }
@@ -83,8 +98,15 @@ public class OrderDaoDB implements OrderDao {
 
     public static final class OrderMapper implements RowMapper<Order> {
 
+        /**
+         * @param rs
+         * @param index
+         * Unmarshalls order data from the database into an order object
+         */
         @Override
         public Order mapRow(ResultSet rs, int index) throws SQLException {
+
+            // populate order objects fields with appropriate data
             Order order = new Order();
             Concert concert = new Concert();
             concert.setId(rs.getInt("concert_id"));
@@ -96,6 +118,7 @@ public class OrderDaoDB implements OrderDao {
             order.setTicketQuantity(rs.getInt("quantity"));
             order.setPrice(rs.getFloat("price"));
 
+            // return order object
             return order;
         }
     }
