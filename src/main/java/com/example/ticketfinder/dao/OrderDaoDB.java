@@ -21,6 +21,8 @@ public class OrderDaoDB implements OrderDao {
 
     public List<Order> getAllUsersOrders(User user) {
 
+        // query connects order, artist, venue, concert, and tf_user tables based on ID-s
+        // and searches for specific user
         final String GET_ALL_USERS_ORDERS =
                 "SELECT o.order_id, a.artist_name, v.venue_name, c.concert_date,c.concert_id, o.quantity, o.price\n" +
 
@@ -29,7 +31,6 @@ public class OrderDaoDB implements OrderDao {
                         "JOIN artist a ON c.artist_id = a.artist_id\n" +
                         "JOIN venue v ON c.venue_id = v.venue_id\n" +
                         "Where user_id = ?;";
-
         return jdbc.query(GET_ALL_USERS_ORDERS, new OrderMapper(), user.getId());
 
     }
@@ -54,13 +55,23 @@ public class OrderDaoDB implements OrderDao {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param seatType
+     * @return float
+     * Calculates the price of a single concert ticket
+     * from artist's base price and seat price based on seat type.
+     */
     public float calcConcertPrice(int id, String seatType) {
 
+        // get artist's base price from database based on concert ID
         final String BASE_PRICE = "SELECT a.base_price FROM artist a " +
                 "JOIN concert c ON c.artist_id = a.artist_id " +
                 "WHERE c.concert_id = ?;";
         List<Float> basePrice = jdbc.query(BASE_PRICE, new basePriceMapper(), id);
 
+        // get seat type's price from database based on concert ID and seat type
         final String SEAT_PRICE = "SELECT DISTINCT s.seat_price from seat s  \n" +
                  "JOIN concert_seat cs ON cs.seat_id = s.seat_id  \n" +
                  "JOIN concert c ON cs.concert_id = c.concert_id  \n" +
@@ -89,6 +100,9 @@ public class OrderDaoDB implements OrderDao {
         }
     }
 
+    /**
+     * Mapper for artist base price attribute.
+     */
     public static final class basePriceMapper implements RowMapper<Float> {
 
         public Float mapRow(ResultSet rs, int index) throws SQLException {
@@ -97,6 +111,9 @@ public class OrderDaoDB implements OrderDao {
         }
     }
 
+    /**
+     * Mapper for seat price attribute.
+     */
     public static final class seatPriceMapper implements RowMapper<Float> {
 
         public Float mapRow(ResultSet rs, int index) throws SQLException {

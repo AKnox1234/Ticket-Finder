@@ -59,6 +59,9 @@ public class UserDaoDB implements UserDao {
 
     }
 
+    /**
+     * Mapper for user DTO.
+     */
     public static final class UserMapper implements RowMapper<User> {
 
         @Override
