@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.ticketfinder"},{"l":"com.example.ticketfinder.controller"},{"l":"com.example.ticketfinder.dao"},{"l":"com.example.ticketfinder.entities"},{"l":"com.example.ticketfinder.exception"},{"l":"com.example.ticketfinder.security"}];updateSearchResults();

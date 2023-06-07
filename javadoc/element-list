@@ -1,0 +1,6 @@
+com.example.ticketfinder
+com.example.ticketfinder.controller
+com.example.ticketfinder.dao
+com.example.ticketfinder.entities
+com.example.ticketfinder.exception
+com.example.ticketfinder.security
