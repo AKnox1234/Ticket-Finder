@@ -1,0 +1,187 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.example.ticketfinder.dao.ConcertDaoDB",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_700473290 { 
+   	label=ticketfinder
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ConcertController26575897[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ConcertController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   concertDao: ConcertDao [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ displayConcerts(model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ displayConcertsBySearch(model: Model, request: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ editConcert(request: HttpServletRequest, model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toEditPage(request: HttpServletRequest, model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ viewConcert(request: HttpServletRequest, model: Model): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ConcertDaoDB172926553[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ConcertDaoDB</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   jdbc: JdbcTemplate [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addConcert(concert: Concert)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteConcert(Id: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findConcertsBySearch(search: String): List&lt;Concert&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getConcertById(iD: int): Concert</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeTicketsForConcert(Id: int, seatType: String, quantity: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ seatsLeft(Id: int): List&lt;Float&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateConcert(concert: Concert, id: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ validSeatNoCheck(Id: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ zeroSeatsLeftCheck(Id: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OrderController26575897[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   concertDao: ConcertDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   orderDao: OrderDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userDao: UserDao [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addOrder(request: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteOrder(request: HttpServletRequest): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ orderList(model: Model): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UserController26575897[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UserController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   concertDao: ConcertDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userDao: UserDao [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ admin(model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createAccount(model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createUser(user: User, result: BindingResult, model: Model): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ home(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ signIn(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ signOut(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ConcertController26575897 -> ConcertDaoDB172926553[label="concertDao
+[1]", arrowhead=none];
+OrderController26575897 -> ConcertDaoDB172926553[label="concertDao
+[1]", arrowhead=none];
+UserController26575897 -> ConcertDaoDB172926553[label="concertDao
+[1]", arrowhead=none];
+    
+}
+@enduml

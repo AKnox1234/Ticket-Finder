@@ -1,0 +1,169 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "com.example.ticketfinder.dao.ConcertDaoDB#getConcertById(int)",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "com.example.ticketfinder.dao.ConcertDaoDB",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_700473290 { 
+   	label=ticketfinder
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   subgraph cluster_1207427427 { 
+   	label=OrderController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   OrderController26575897XXXaddOrder63083346[
+	label="+ addOrder()"
+	style=filled
+	fillcolor=white
+	tooltip="OrderController
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_355043729 { 
+   	label=ConcertDaoDB
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ConcertDaoDB172926553XXXgetConcertById104431[
+	label="+ getConcertById()"
+	style=filled
+	fillcolor=white
+	tooltip="ConcertDaoDB
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_919991419 { 
+   	label=ConcertController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   ConcertController26575897XXXtoEditPage2088715645[
+	label="+ toEditPage()"
+	style=filled
+	fillcolor=white
+	tooltip="ConcertController
+
+null"
+	fontcolor=darkgreen
+];
+
+ConcertController26575897XXXviewConcert2088715645[
+	label="+ viewConcert()"
+	style=filled
+	fillcolor=white
+	tooltip="ConcertController
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+} 
+
+'edges    
+ConcertController26575897XXXtoEditPage2088715645 -> ConcertDaoDB172926553XXXgetConcertById104431;
+ConcertController26575897XXXviewConcert2088715645 -> ConcertDaoDB172926553XXXgetConcertById104431;
+OrderController26575897XXXaddOrder63083346 -> ConcertDaoDB172926553XXXgetConcertById104431;
+    
+}
+@enduml
