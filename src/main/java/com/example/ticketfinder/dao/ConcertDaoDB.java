@@ -102,17 +102,17 @@ public class ConcertDaoDB implements ConcertDao {
                 "JOIN concert c ON c.concert_id = cs.concert_id\n" +
                 "JOIN seat s ON s.seat_id = cs.seat_id\n" +
                 "SET quantity = quantity - ?\n" +
-                "WHERE s.seat_type LIKE '?' AND c.concert_id = ?;";
-        jdbc.update(REMOVE_TICKETS, quantity, seatType, Id);
+                "WHERE s.seat_type LIKE ? AND c.concert_id = ?;";
+        jdbc.update(REMOVE_TICKETS, quantity, seatType.toLowerCase(), Id);
     }
 
     public List<Float> seatsLeft(int Id) {
 
-        final String TICKETS_LEFT = "SELECT quantity FROM concert_seat cs\n" +
+        final String SEATS_LEFT = "SELECT quantity FROM concert_seat cs\n" +
                 "JOIN concert c ON c.concert_id = cs.concert_id\n" +
                 "JOIN seat s ON s.seat_id = cs.seat_id\n" +
                 "WHERE c.concert_id = ?;";
-        return jdbc.queryForList(TICKETS_LEFT, Float.class, Id);
+        return jdbc.queryForList(SEATS_LEFT, Float.class, Id);
     }
 
     public boolean validSeatNoCheck(int Id) {

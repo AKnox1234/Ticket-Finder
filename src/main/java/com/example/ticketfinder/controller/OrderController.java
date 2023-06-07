@@ -50,6 +50,8 @@ public class OrderController {
         float price = orderDao.calcConcertPrice(concertId, seatType);
         price *= ticketQuantity;
 
+        concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
+
         Order order = new Order();
         order.setConcert(concert);
         order.setTicketQuantity(ticketQuantity);

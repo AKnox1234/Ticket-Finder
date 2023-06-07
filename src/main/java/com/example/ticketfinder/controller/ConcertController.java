@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -36,9 +37,36 @@ public class ConcertController {
         model.addAttribute("concerts", concerts);
         model.addAttribute("search", search);
 
+        HashMap<Concert, Integer> seatNoMap = new HashMap<Concert, Integer>();
+        for (Concert concert : concerts) {
+            List<Float> seatsNo = concertDao.seatsLeft(concert.getId());
+            float sum = 0;
+            for (Float entry : seatsNo) {
+                sum += entry;
+            }
+            int sumInt = (int) sum;
+            seatNoMap.put(concert, sumInt);
+        }
+        model.addAttribute("seatNoMap", seatNoMap);
+
         return "concerts";
 
     }
+
+    @GetMapping("seatNo")
+    public String seatNo(HttpServletRequest request) {
+
+        int iD = Integer.parseInt(request.getParameter("id"));
+        List<Float> seatNos = concertDao.seatsLeft(iD);
+        float sum = 0;
+        for (Float entry : seatNos) {
+            sum += entry;
+        }
+        String sumStr = String.valueOf(sum);
+
+        return sumStr;
+    }
+
 
     @GetMapping("view-concert")
     public String viewConcert(HttpServletRequest request, Model model) {
