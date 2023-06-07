@@ -113,13 +113,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="orderList">My Orders</a>
+                        <a class="nav-link" href="order-list">My Orders</a>
                     </li>
                 </ul>
             </div>
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
+                    <a class="nav-link active" aria-current="page" href="sign-out">Sign out</a>
                 </li>
             </ul>
         </div>
@@ -131,7 +131,7 @@
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <form id="searchForm" class="d-flex m-sm-4" role="search" action="concertsBySearch" method="GET">
+                <form id="searchForm" class="d-flex m-sm-4" role="search" action="concerts-by-search" method="GET">
                     <input name="search" class="form-control me-2" type="search"
                            placeholder="Browse by Artist, City, Venue..."
                            aria-label="Search">
@@ -161,10 +161,10 @@
                                     Hall, London</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a th:href="@{/viewConcert(id=${concert.id})}" class="btn btn-success">Book
+                                        <a th:href="@{/view-concert(id=${concert.id})}" class="btn btn-success">Book
                                             Tickets</a>
                                     </div>
-                                    <small class="text-body-">32 Tickets Remaining</small>
+                                    <small class="text-body-white">32 Tickets Remaining</small>
                                 </div>
                             </div>
                         </div>

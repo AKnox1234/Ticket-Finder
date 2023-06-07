@@ -63,7 +63,7 @@
             </div>
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="signOut">Sign out</a>
+                    <a class="nav-link active" aria-current="page" href="sign-out">Sign out</a>
                 </li>
             </ul>
         </div>
@@ -100,7 +100,7 @@
                                 <td th:text="${concert.getVenue()}">tnixon12@example.com</td>
                                 <td th:text="${concert.getConcertDate()}">Edinburgh</td>
                                 <td>
-                                    <a th:href="@{/editConcertPage(id=${concert.id})}" class="btn btn-success">Edit</a>
+                                    <a th:href="@{/edit-concert(id=${concert.id})}" class="btn btn-success">Edit</a>
                                 </td>
                             </tr>
                             </tbody>

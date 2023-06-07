@@ -12,9 +12,5 @@ public interface ConcertDao {
 
     List<Concert> findConcertsBySearch(String search);
 
-    void removeTicketsForConcert(int Id, String seatType, int quantity);
-
-    List<Float> seatsLeft(int iD);
-
     public void updateConcert(Concert concert, int id);
 }

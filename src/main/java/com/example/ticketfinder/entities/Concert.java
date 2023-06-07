@@ -3,7 +3,6 @@ package com.example.ticketfinder.entities;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 public class Concert {
@@ -14,6 +13,6 @@ public class Concert {
     private String city;
     private Date concertDate;
     private String artistImage;
-
+    private int ticketsRemaining;
 
 }

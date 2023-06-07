@@ -261,3 +261,5 @@ JOIN seat s JOIN venue v ON v.venue_id = c.venue_id;
 INSERT INTO concert_seat (concert_id, seat_id, quantity)
 SELECT cid, sid, q
 FROM concert_seat_view;
+
+INSERT INTO tf_user(first_name, last_name, email, user_password, user_type) values('Aaron', 'Knox', 'aaron@tfinder.com', '$2a$12$E9s3H2I8ZqAd1.YAA8XGquhf3fe0NL/.0HK7RoQqJ4Xc6iRhbbNE6', 'Admin');

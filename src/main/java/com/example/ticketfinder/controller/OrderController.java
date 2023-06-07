@@ -24,7 +24,7 @@ public class OrderController {
     @Autowired
     ConcertDao concertDao;
 
-    @GetMapping("orderList")
+    @GetMapping("order-list")
     public String orderList(Model model) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -34,21 +34,18 @@ public class OrderController {
 
         model.addAttribute("usersOrders", usersOrders);
 
-        return "/orderList";
+        return "order-list";
     }
 
-    @PostMapping("addOrder")
+    @PostMapping("add-order")
     public String addOrder(HttpServletRequest request) {
-
-
 
         int concertId = Integer.parseInt(request.getParameter("concertId"));
         int ticketQuantity = Integer.parseInt(request.getParameter("quantity"));
         String seatType = request.getParameter("seatType");
-//        int price = Integer.parseInt(request.getParameter("price"));
 
         Concert concert = concertDao.getConcertById(concertId);
-        concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
+//        concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
 
         float price = orderDao.calcConcertPrice(concertId, seatType);
         price *= ticketQuantity;
@@ -68,13 +65,13 @@ public class OrderController {
 
     }
 
-    @GetMapping("deleteOrder")
+    @GetMapping("delete-order")
     public String deleteOrder(HttpServletRequest request) {
 
         int orderId = Integer.parseInt(request.getParameter("id"));
         orderDao.deleteOrder(orderId);
 
-        return "redirect:orderList";
+        return "redirect:order-list";
 
     }
 }
