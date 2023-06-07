@@ -164,7 +164,7 @@
                                         <a th:href="@{/view-concert(id=${concert.id})}" class="btn btn-success">Book
                                             Tickets</a>
                                     </div>
-                                    <small class="text-body-white">32 Tickets Remaining</small>
+                                    <small class="text-body-white" th:text="${seatNoMap.get(concert)}"></small>
                                 </div>
                             </div>
                         </div>
