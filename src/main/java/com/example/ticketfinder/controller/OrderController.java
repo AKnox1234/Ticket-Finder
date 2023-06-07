@@ -45,11 +45,12 @@ public class OrderController {
         String seatType = request.getParameter("seatType");
 
         Concert concert = concertDao.getConcertById(concertId);
-//        concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
 
+        // calculate price for order
         float price = orderDao.calcConcertPrice(concertId, seatType);
         price *= ticketQuantity;
 
+        // removing entries from remaining tickets pool according to order's ticket quantity
         concertDao.removeTicketsForConcert(concertId, seatType, ticketQuantity);
 
         Order order = new Order();

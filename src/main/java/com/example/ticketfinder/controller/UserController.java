@@ -60,10 +60,12 @@ public class UserController {
     @GetMapping("admin")
     public String admin(Model model) {
 
-            List<Concert> concerts = concertDao.getAllConcerts();
-            model.addAttribute("concerts", concerts);
+        // load all concert data for admin page
+        List<Concert> concerts = concertDao.getAllConcerts();
+        // add concert data to model for use in frontend
+        model.addAttribute("concerts", concerts);
 
-            return "data-list-admin";
+        return "data-list-admin";
     }
 
     @GetMapping("sign-in")

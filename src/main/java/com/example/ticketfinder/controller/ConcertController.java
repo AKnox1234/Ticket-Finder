@@ -23,6 +23,7 @@ public class ConcertController {
 
     @GetMapping("concerts")
     public String displayConcerts(Model model) {
+
         List<Concert> concerts = concertDao.getAllConcerts();
         model.addAttribute("concerts", concerts);
 
@@ -32,44 +33,38 @@ public class ConcertController {
 
     @GetMapping("concerts-by-search")
     public String displayConcertsBySearch(Model model, HttpServletRequest request) {
+
         String search = request.getParameter("search");
         List<Concert> concerts = concertDao.findConcertsBySearch(search);
         model.addAttribute("concerts", concerts);
         model.addAttribute("search", search);
 
+        /* map the number of seats left for each concert to the respective concert instance
+           to be able to show on the frontend */
+        // initialise map
         HashMap<Concert, Integer> seatNoMap = new HashMap<Concert, Integer>();
+        // iterate trough each concert
         for (Concert concert : concerts) {
+            // get and save number of seats for each concert
             List<Float> seatsNo = concertDao.seatsLeft(concert.getId());
             float sum = 0;
+            // number of seats left us the sum of seats left in for every seat type
             for (Float entry : seatsNo) {
                 sum += entry;
             }
             int sumInt = (int) sum;
             seatNoMap.put(concert, sumInt);
         }
+        // pass mapping to model
         model.addAttribute("seatNoMap", seatNoMap);
 
         return "concerts";
 
     }
 
-    @GetMapping("seatNo")
-    public String seatNo(HttpServletRequest request) {
-
-        int iD = Integer.parseInt(request.getParameter("id"));
-        List<Float> seatNos = concertDao.seatsLeft(iD);
-        float sum = 0;
-        for (Float entry : seatNos) {
-            sum += entry;
-        }
-        String sumStr = String.valueOf(sum);
-
-        return sumStr;
-    }
-
-
     @GetMapping("view-concert")
     public String viewConcert(HttpServletRequest request, Model model) {
+
         int iD = Integer.parseInt(request.getParameter("id"));
         Concert concert = concertDao.getConcertById(iD);
         model.addAttribute("concert", concert);
@@ -88,36 +83,40 @@ public class ConcertController {
         return "edit-concert";
     }
 
+
+    /**
+     *
+     * @param request
+     * @param model
+     * @return
+     * @throws ParseException
+     * Method used for admin CRUD feature: editing the detalis of a concert
+     */
     @Transactional
     @PostMapping("edit-concert")
     public String editConcert(HttpServletRequest request, Model model) throws ParseException {
 
+        // initialise variables from front-end request
         int iD = Integer.parseInt(request.getParameter("id"));
         String artist = request.getParameter("artist");
         String venue = request.getParameter("venue");
         Date date = new SimpleDateFormat("yyy-MM-dd").parse(request.getParameter("date"));
 
+        // initialise new concert instance & store variables in it
         Concert newConcert = new Concert();
-
         newConcert.setArtist(artist);
         newConcert.setVenue(venue);
         newConcert.setConcertDate(date);
 
+        // perform CRUD editing operation via DAO
         concertDao.updateConcert(newConcert, iD);
 
+        // re-load concert data with updated entry
         List<Concert> concerts = concertDao.getAllConcerts();
         model.addAttribute("concerts", concerts);
 
+        // re-direct to admin concert list page
         return "data-list-admin";
     }
 
-//    @GetMapping("seats-left")
-//    public String ticketNumber(HttpServletRequest request, Model model) {
-//        int iD = Integer.parseInt(request.getParameter("id"));
-//        List<Float> seatsLeft = concertDao.seatsLeft(iD);
-//        int sLeft = (int) (seatsLeft.get(0) + seatsLeft.get(1));
-//        model.addAttribute("seatsLeft", sLeft);
-//
-//        return "seats-left";
-//    }
 }
